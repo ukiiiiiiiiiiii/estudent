@@ -40,7 +40,7 @@
 
 html {
     height: 100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 html {
@@ -7017,7 +7017,7 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #007bff !important;
+  background-color: #1A355B !important;
 }
 
 a.bg-primary:hover,
@@ -10984,4 +10984,39 @@ main {
     background-repeat: no-repeat;
     background-color: #181F4B;
     color: #ffffff;
+}
+
+.flag-pattern {
+    background-image: url("img/flag-pattern.png");
+    background-size: 33px 28px;
+    height: 28px;
+}
+
+.nav-tabs {
+    background-color: #F5F5F5;
+    padding-top: 5px;
+}
+
+#tab.nav-item:hover {
+    background-color: #dddddd;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+.nav-link {
+    color: #6c757d;
+}
+
+.nav-link.active {
+    pointer-events: none;
+}
+
+.nav-link:hover {
+    color: #6c757d;
+}
+
+.table .thead-blue th {
+    color: #fff;
+    background-color: #285586;
+    border-color: #DEE2E6;
 }

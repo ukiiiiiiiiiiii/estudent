@@ -11,7 +11,7 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="wrapper background">
+<body class="wrapper background" style="overflow: hidden">
 <header></header>
 
 <main>
@@ -19,7 +19,7 @@
         <div class="container">
             <div class="pb-4 text-center" style="padding-top: 170px">
                 <div class="pb-4 h2 font-weight-bold">СТУДЕНТСКА СЛУЖБА</div>
-                <img src="{{ asset('css/img/logo.png') }}" alt="КПУ" height="180">
+                <img src="{{ asset('css/img/logo180.png') }}" alt="КПУ">
             </div>
 
             <div class="pt-2 d-flex justify-content-center">
