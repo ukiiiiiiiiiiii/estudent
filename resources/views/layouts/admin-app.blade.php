@@ -10,6 +10,7 @@
     <title>КПУ | Студентски веб сервис | Администратор</title>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('fontawesome/css/all.css') }}" rel="stylesheet">
 </head>
 <body class="wrapper">
 <header>
@@ -17,7 +18,7 @@
 
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand d-flex flex-row" href="{{ url('/') }}">
+            <a class="navbar-brand d-flex flex-row" href="{{ route('admin.dashboard') }}">
                 <img src="{{ asset('css/img/logo50.png') }}" class="d-inline-block align-top" alt="">
                 <div style="padding-top: 10px" class="pl-2">Криминалистичко-полицијски универзитет</div>
             </a>
@@ -39,15 +40,15 @@
                     @endif
                 @else
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <div id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->username }} <span class="caret"></span>
-                        </a>
+                        </div>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('admin.logout') }}"
                                onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                Одјави се
                             </a>
 
                             <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
@@ -66,10 +67,58 @@
     </div>
 </main>
 <footer>
-    <div class="text-center mb-2 mt-5 text-muted">Copyright 2021 © Урош Динић</div>
+    <div class="text-center mb-2 text-muted">Copyright 2021 © Урош Динић</div>
 </footer>
 
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/search.js') }}"></script>
+
+@if(Session::has('addEmployee_success'))
+    <script>
+        $(function() {
+            $('#addEmployee_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('addEmployee_failed'))
+    <script>
+        $(function() {
+            $('#addEmployee_failed').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('updateEmployee_success'))
+    <script>
+        $(function() {
+            $('#updateEmployee_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('updateEmployee_failed'))
+    <script>
+        $(function() {
+            $('#updateEmployee_failed').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('deleteEmployee_success'))
+    <script>
+        $(function() {
+            $('#deleteEmployee_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('deleteEmployee_failed'))
+    <script>
+        $(function() {
+            $('#deleteEmployee_failed').modal('show');
+        });
+    </script>
+@endif
 </body>
 </html>

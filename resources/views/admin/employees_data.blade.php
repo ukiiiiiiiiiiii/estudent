@@ -1,22 +1,27 @@
-<table class="table table-bordered">
-    <thead class="thead-blue">
-    <tr>
-        <th class="col-md-5" data-sorting_type="asc" data-column_name="name" style="cursor: pointer">Име и презиме</th>
-        <th class="col-md-5" data-sorting_type="asc" data-column_name="username" style="cursor: pointer">Корисничко име</th>
-        <th class="col-md-2 text-center">Акција</th>
-    </tr>
-    </thead>
-    <tbody>
     @foreach($employees as $employee)
         <tr>
             <td>{{ $employee->name }}</td>
             <td>{{ $employee->username }}</td>
             <td class="text-center">
-                <a href="#" class="btn btn-sm btn-info">Измени</a>
-                <a href="#" class="btn btn-sm btn-danger">Обриши</a>
+                <a href="{{ route('admin.editEmployee', ['id' => $employee->id]) }}" class="btn btn-sm btn-info">Измени</a>
+                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#ModalDelete{{$employee->id}}">Обриши</button>
+
+                <div class="modal fade" id="ModalDelete{{$employee->id}}" tabindex="-1" aria-labelledby="ModalDelete{{$employee->id}}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body text-left" style="padding-bottom: 0.35rem">
+                                Да ли сте сигурни да желите да обришете корисника <b>{{$employee->name}}</b>?
+                            </div>
+                            <div class="modal-footer" style="padding-top: 0.40rem">
+                                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Одустани</button>
+                                <a href="{{ route('admin.destroyEmployee', ['id' => $employee->id]) }}" class="btn btn-sm btn-danger">Обриши</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
         </tr>
     @endforeach
-    </tbody>
-</table>
-{{ $employees->links() }}
+    <tr>
+        <td colspan="3">{{ $employees->links() }}</td>
+    </tr>

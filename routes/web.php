@@ -24,6 +24,10 @@ Route::prefix('admin')->group(function() {
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::post('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
     Route::get('/createEmployee', 'AdminController@createEmployee')->name('admin.createEmployee');
+    Route::post('/storeEmployee', 'AdminController@storeEmployee')->name('admin.storeEmployee');
+    Route::get('/editEmployee/{id}', 'AdminController@editEmployee')->name('admin.editEmployee');
+    Route::post('/updateEmployee/{id}', 'AdminController@updateEmployee')->name('admin.updateEmployee');
+    Route::get('/destroyEmployee/{id}', 'AdminController@destroyEmployee')->name('admin.destroyEmployee');
     Route::get('/fetch_employees_data', 'AdminController@fetch_employees_data');
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
 });

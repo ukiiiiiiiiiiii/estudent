@@ -11020,3 +11020,24 @@ main {
     background-color: #285586;
     border-color: #DEE2E6;
 }
+
+/** EMPLOYEES TABLE **/
+
+#employees_data td, th {
+    border: 1px solid #dee2e6;
+}
+
+#employees_data tbody > tr:last-child > td {
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    padding-left: 0;
+}
+
+/** EMPLOYEES TABLE **/
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
