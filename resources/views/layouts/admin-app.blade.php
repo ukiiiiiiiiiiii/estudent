@@ -22,41 +22,30 @@
                 <img src="{{ asset('css/img/logo50.png') }}" class="d-inline-block align-top" alt="">
                 <div style="padding-top: 10px" class="pl-2">Криминалистичко-полицијски универзитет</div>
             </a>
+
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
             </ul>
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
-                <!-- Authentication Links -->
-                @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                    @endif
-                @else
-                    <li class="nav-item dropdown">
-                        <div id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->username }} <span class="caret"></span>
-                        </div>
+                <li class="nav-item dropdown">
+                    <div id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->username }} <span class="caret"></span>
+                    </div>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('admin.logout') }}"
-                               onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                Одјави се
-                            </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('admin.logout') }}"
+                           onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                            Одјави се
+                        </a>
 
-                            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
-                @endguest
+                        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
@@ -71,7 +60,7 @@
 </footer>
 
 <script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('js/search.js') }}"></script>
+<script src="{{ asset('js/searchEmployees.js') }}"></script>
 
 @if(Session::has('addEmployee_success'))
     <script>

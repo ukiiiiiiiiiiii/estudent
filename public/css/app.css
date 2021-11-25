@@ -11041,3 +11041,10 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+a.dropdown-item.active,
+a.dropdown-item:active {
+    color: #000000;
+    text-decoration: none;
+    background-color: #dadfe4;
+}

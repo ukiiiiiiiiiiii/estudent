@@ -6,16 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="1819c881-407f-4551-a89f-3e306f07ab8e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EmployeeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EmployeeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/search.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/searchEmployees.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/en/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/validation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/createEmployee.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/createEmployee.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/employees_data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/employees_data.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin-app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin-app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/employee-app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/employee-app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,8 +29,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -187,7 +184,7 @@
       <updated>1636008600303</updated>
       <workItem from="1636008649833" duration="695000" />
       <workItem from="1636700399659" duration="2156000" />
-      <workItem from="1636714580083" duration="117025000" />
+      <workItem from="1636714580083" duration="131051000" />
     </task>
     <servers />
   </component>
