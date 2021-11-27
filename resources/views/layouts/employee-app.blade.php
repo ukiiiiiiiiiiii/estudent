@@ -7,10 +7,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="icon" href="{{ asset('css/img/icon.ico') }}">
-    <title>КПУ | Студентски веб сервис | Администратор</title>
+    <title>КПУ | Студентски веб сервис | Студентска служба</title>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('fontawesome/css/all.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/searchPrograms.js') }}"></script>
 </head>
 <body class="wrapper">
 <header>
@@ -51,14 +53,60 @@
     </nav>
 </header>
 <main>
-    <div id="app">
+    <div>
         @yield('content')
     </div>
 </main>
 <footer>
-    <div class="text-center mb-2 text-muted">Copyright 2021 © Урош Динић</div>
+    <div class="text-center mb-1 text-muted">Copyright 2021 © Урош Динић</div>
 </footer>
 
-<script src="{{ asset('js/app.js') }}"></script>
+@if(Session::has('createProgram_success'))
+    <script>
+        $(function() {
+            $('#createProgram_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('createProgram_failed'))
+    <script>
+        $(function() {
+            $('#createProgram_failed').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('updateProgram_success'))
+    <script>
+        $(function() {
+            $('#updateProgram_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('updateProgram_failed'))
+    <script>
+        $(function() {
+            $('#updateProgram_failed').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('deleteProgram_success'))
+    <script>
+        $(function() {
+            $('#deleteProgram_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('deleteProgram_failed'))
+    <script>
+        $(function() {
+            $('#deleteProgram_failed').modal('show');
+        });
+    </script>
+@endif
 </body>
 </html>

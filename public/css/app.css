@@ -11021,20 +11021,16 @@ main {
     border-color: #DEE2E6;
 }
 
-/** EMPLOYEES TABLE **/
-
-#employees_data td, th {
+#table_data td, th {
     border: 1px solid #dee2e6;
 }
 
-#employees_data tbody > tr:last-child > td {
+#table_data tbody > tr:last-child > td {
     border-bottom: none;
     border-left: none;
     border-right: none;
     padding-left: 0;
 }
-
-/** EMPLOYEES TABLE **/
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -11046,5 +11042,57 @@ a.dropdown-item.active,
 a.dropdown-item:active {
     color: #000000;
     text-decoration: none;
-    background-color: #dadfe4;
+    background-color: #cbd3da;
+}
+
+#dropdown-tab.active {
+    background-color: #f8fafc;
+    border: 1px solid;
+    border-color: #dee2e6 #dee2e6 #f8fafc;
+    margin-bottom: -1px;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+#dropdown-tab.nav-item.active .nav-link {
+    color: #495057;
+}
+
+#dropdown-tab.nav-item:hover {
+    background-color: #dddddd;
+    border-top-left-radius: 0.35rem;
+    border-top-right-radius: 0.35rem;
+}
+
+.nav-tabs .nav-item.show .nav-link {
+    background-color: #DDDDDD;
+}
+
+#dropdown-tab.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+}
+
+
+#dropdown-tab.active .dropdown-menu {
+    left: -1px;
+}
+
+.dropdown-menu {
+    left: 1px;
+}
+
+.card-navigation-1 {
+    color: #0d4077;
+    font-weight: bold;
+}
+
+.card-navigation-1:hover {
+    text-decoration: none;
+}
+
+.card-navigation-2 {
+    color: #c7363d;
+    font-weight: bold;
+    pointer-events: none;
 }

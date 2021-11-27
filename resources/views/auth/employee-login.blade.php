@@ -28,7 +28,7 @@
 
                     <div class="form-group mb-0">
                         <label for="username" class="sr-only">Корисничко име</label>
-                        <input id="username" placeholder="Корисничко име" type="text" class="text-center form-control @error('username') is-invalid @enderror @error('password') is-invalid @enderror" name="username" required oninvalid="this.setCustomValidity('Унесите корисничко име!')" oninput="setCustomValidity('')" autofocus>
+                        <input id="username" placeholder="Корисничко име" type="text" value="{{ old('username') }}" class="text-center form-control @error('username') is-invalid @enderror @error('password') is-invalid @enderror" name="username" required oninvalid="this.setCustomValidity('Унесите корисничко име!')" oninput="setCustomValidity('')" autofocus>
 
                         <div class="py-2"></div>
 

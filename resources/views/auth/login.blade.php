@@ -28,7 +28,7 @@
 
                         <div class="form-group mb-0">
                             <label for="username" class="sr-only">Број индекса</label>
-                            <input id="username" placeholder="Број индекса" type="text" class="text-center form-control @error('username') is-invalid @enderror @error('password') is-invalid @enderror" name="username" required oninvalid="this.setCustomValidity('Унесите број индекса!')" oninput="setCustomValidity('')" autofocus>
+                            <input id="username" placeholder="Број индекса" type="text" value="{{ old('username') }}" class="text-center form-control @error('username') is-invalid @enderror @error('password') is-invalid @enderror" name="username" required oninvalid="this.setCustomValidity('Унесите број индекса!')" oninput="setCustomValidity('')" autofocus>
 
                             <div class="py-2"></div>
 

@@ -1,7 +1,7 @@
     @foreach($employees as $employee)
         <tr>
-            <td>{{ $employee->name }}</td>
-            <td>{{ $employee->username }}</td>
+            <td class="pt-3">{{ $employee->name }}</td>
+            <td class="pt-3">{{ $employee->username }}</td>
             <td class="text-center">
                 <a href="{{ route('admin.editEmployee', ['id' => $employee->id]) }}" class="btn btn-sm btn-info">Измени</a>
                 <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#ModalDelete{{$employee->id}}">Обриши</button>

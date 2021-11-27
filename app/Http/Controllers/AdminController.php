@@ -85,13 +85,11 @@ class AdminController extends Controller
     public function updateEmployee(Request $request, $id) {
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:employees',
             'password' => 'required|numeric|digits:13'
         ]);
 
         $employee = Employee::findOrFail($id);
         $employee->name = $request->name;
-        $employee->username = $request->username;
         $employee->password = Hash::make($request->password);
 
         if ($employee->save()) {

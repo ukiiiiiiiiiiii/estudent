@@ -20,7 +20,7 @@
 
     <div class="pb-3"></div>
 
-    <table class="table" id="employees_data">
+    <table class="table" id="table_data">
         <thead class="thead-blue">
         <tr>
             <th class="col-md-5 sorting" data-sorting_type="asc" data-column_name="name" style="cursor: pointer"><span id="name_icon"><i class="fas fa-sort pr-1"></i></span>Име и презиме</th>

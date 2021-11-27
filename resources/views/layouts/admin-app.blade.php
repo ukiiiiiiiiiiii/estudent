@@ -11,6 +11,8 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('fontawesome/css/all.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/searchEmployees.js') }}"></script>
 </head>
 <body class="wrapper">
 <header>
@@ -51,16 +53,13 @@
     </nav>
 </header>
 <main>
-    <div id="app">
+    <div>
         @yield('content')
     </div>
 </main>
 <footer>
-    <div class="text-center mb-2 text-muted">Copyright 2021 © Урош Динић</div>
+    <div class="text-center mb-1 text-muted">Copyright 2021 © Урош Динић</div>
 </footer>
-
-<script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('js/searchEmployees.js') }}"></script>
 
 @if(Session::has('addEmployee_success'))
     <script>
