@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Information;
 use App\Program;
+use App\Subject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -28,16 +29,26 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $first_created_at = DB::table('information')->orderBy('created_at', 'asc')->first('created_at');
-        $latest_created_at = DB::table('information')->orderBy('created_at', 'desc')->first('created_at');
-        $from =  date('d.m.Y.', strtotime($first_created_at->created_at));
-        $to =  date('d.m.Y.', strtotime($latest_created_at->created_at . " +1 days"));
+        if (count(Information::all()) == 0) {
+            $from = "";
+            $to = " ";
+            $information = Information::orderBy('created_at', 'desc')->paginate(10);
 
-        $information = Information::orderBy('created_at', 'desc')->paginate(10);
+            return view('employee')->with('information', $information)
+                ->with('from', $from)
+                ->with('to', $to);
+        } else {
+            $first_created_at = DB::table('information')->orderBy('created_at', 'asc')->first('created_at');
+            $latest_created_at = DB::table('information')->orderBy('created_at', 'desc')->first('created_at');
+            $from =  date('d.m.Y.', strtotime($first_created_at->created_at));
+            $to =  date('d.m.Y.', strtotime($latest_created_at->created_at . " +1 days"));
 
-        return view('employee')->with('information', $information)
-            ->with('from', $from)
-            ->with('to', $to);
+            $information = Information::orderBy('created_at', 'desc')->paginate(10);
+
+            return view('employee')->with('information', $information)
+                ->with('from', $from)
+                ->with('to', $to);
+        }
     }
 
     public function searchInformation(Request $request) {
@@ -231,10 +242,115 @@ class EmployeeController extends Controller
         }
     }
 
+    public function showSubjects()
+    {
+        $subjects = Subject::orderBy('program_id', 'asc')->orderBy('grade', 'asc')->orderBy('name', 'asc')->get();
+        return view('employee.subjects', compact('subjects'));
+    }
+
+    public function fetch_subjects_data(Request $request) {
+        if($request->ajax()) {
+            $query = $request->get('query');
+            $query = str_replace(" ", "%", $query);
+
+            $subjects = Subject::join('programs', 'subjects.program_id', '=', 'programs.id')
+                ->select('subjects.*', 'programs.name as program_name')
+                ->where('programs.name', 'like', '%'. $query .'%')
+                ->orWhere('subjects.name', 'like', '%'. $query .'%')
+                ->orWhere('grade', 'like', '%'. $query .'%')
+                ->orWhere('espb', 'like', '%'. $query .'%')
+                ->get();
+
+            return view('employee.subjects_data', compact('subjects'))->render();
+        }
+    }
+
+    public function createSubject()
+    {
+        $programs = Program::all();
+        return view('employee.createSubject')->with('programs', $programs);
+    }
+
+    public function storeSubject(Request $request) {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'program_id' => 'required',
+            'grade' => 'required',
+            'espb' => 'required|numeric',
+        ]);
+
+        if ($request->program_id == 'all' && $request->grade != 'all') {
+            $programs = Program::all();
+
+            foreach ($programs as $program) {
+                $subject = new Subject();
+
+                $subject->name = $request->name;
+                $subject->program_id = $program->id;
+                $subject->grade = $request->grade;
+                $subject->espb = $request->espb;
+
+                $subject->save();
+            }
+        }
+        if ($request->program_id != 'all' && $request->grade == 'all') {
+            $grade = 4;
+
+            while ($grade > 0) {
+                $subject = new Subject();
+
+                $subject->name = $request->name;
+                $subject->program_id = $program->id;
+                $subject->grade = $request->grade;
+                $subject->espb = $request->espb;
+
+                $grade--;
+
+                $subject->save();
+            }
+        }
+        if ($request->program_id == 'all' && $request->grade == 'all') {
+            $programs = Program::all();
+
+            foreach ($programs as $program) {
+                $grade = 4;
+
+                while ($grade > 0) {
+                    $subject = new Subject();
+
+                    $subject->name = $request->name;
+                    $subject->program_id = $program->id;
+                    $subject->grade = $request->grade;
+                    $subject->espb = $request->espb;
+
+                    $grade--;
+
+                    $subject->save();
+                }
+            }
+        }
+        if ($request->program_id != 'all' && $request->grade != 'all') {
+            $subject = new Subject();
+
+            $subject->name = $request->name;
+            $subject->program_id = $request->program_id;
+            $subject->grade = $request->grade;
+            $subject->espb = $request->espb;
+        }
+
+        if ($subject->save()) {
+            Session::flash('createSubject_success');
+            return redirect()->route('employee.showSubjects')->with(['subjectName' => $subject->name]);
+        } else {
+            Session::flash('createSubject_failed');
+            return redirect()->route('employee.createSubject');
+        }
+    }
+
     public function showPrograms()
     {
         $programs = DB::table('programs')->orderBy('name', 'asc')->paginate(10);
-        return view('employee.program', compact('programs'));
+        return view('employee.programs', compact('programs'));
     }
 
     public function fetch_programs_data(Request $request) {

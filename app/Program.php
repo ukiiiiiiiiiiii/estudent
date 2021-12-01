@@ -15,4 +15,8 @@ class Program extends Model
     public function information() {
         return $this->hasMany(Information::class);
     }
+
+    public function subjects() {
+        return $this->hasMany(Subject::class);
+    }
 }

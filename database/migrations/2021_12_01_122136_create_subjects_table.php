@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInformationTable extends Migration
+class CreateSubjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateInformationTable extends Migration
      */
     public function up()
     {
-        Schema::create('information', function (Blueprint $table) {
+        Schema::create('subjects', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('program_id')->index();
+            $table->string('name');
             $table->smallInteger('grade');
-            $table->text('text');
-            $table->timestamps();
+            $table->smallInteger('espb');
 
             $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
         });
@@ -31,6 +31,6 @@ class CreateInformationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('information');
+        Schema::dropIfExists('subjects');
     }
 }

@@ -13,7 +13,7 @@
         <li id="dropdown-tab" class="nav-item dropdown active mr-1">
             <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Студијски програми</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item active disabled" href="#">Прикажи студијске програме</a>
+                <a class="dropdown-item active disabled" href="{{ route('employee.showPrograms') }}">Прикажи студијске програме</a>
                 <a class="dropdown-item" href="{{ route('employee.createProgram') }}">Креирај студијски програм</a>
                 <a class="dropdown-item disabled" href="#">Измени студијски програм</a>
             </div>

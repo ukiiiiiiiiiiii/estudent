@@ -161,6 +161,22 @@
     </script>
 @endif
 
+@if(Session::has('createSubject_success'))
+    <script>
+        $(function() {
+            $('#createSubject_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('createSubject_failed'))
+    <script>
+        $(function() {
+            $('#createSubject_failed').modal('show');
+        });
+    </script>
+@endif
+
 <script>
     $(".datepicker").datepicker({
         format: "dd.mm.yyyy.",

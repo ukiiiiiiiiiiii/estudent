@@ -53,6 +53,10 @@ Route::prefix('employee')->group(function() {
     Route::get('/editInformation/{id}', 'EmployeeController@editInformation')->name('employee.editInformation');
     Route::post('/updateInformation/{id}', 'EmployeeController@updateInformation')->name('employee.updateInformation');
     Route::get('/destroyInformation/{id}', 'EmployeeController@destroyInformation')->name('employee.destroyInformation');
+    Route::get('/showSubjects', 'EmployeeController@showSubjects')->name('employee.showSubjects');
+    Route::get('/fetch_subjects_data', 'EmployeeController@fetch_subjects_data');
+    Route::get('/createSubject', 'EmployeeController@createSubject')->name('employee.createSubject');
+    Route::post('/storeSubject', 'EmployeeController@storeSubject')->name('employee.storeSubject');
     Route::get('/createProgram', 'EmployeeController@createProgram')->name('employee.createProgram');
     Route::get('/showPrograms', 'EmployeeController@showPrograms')->name('employee.showPrograms');
     Route::post('/storeProgram', 'EmployeeController@storeProgram')->name('employee.storeProgram');
