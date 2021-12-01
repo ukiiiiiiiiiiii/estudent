@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Information;
 use App\Program;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
@@ -26,9 +28,207 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        /* Korisicu za oglasnu tablu */
-        $programs = DB::table('programs')->orderBy('name', 'asc')->paginate(10);
-        return view('employee', compact('programs'));
+        $first_created_at = DB::table('information')->orderBy('created_at', 'asc')->first('created_at');
+        $latest_created_at = DB::table('information')->orderBy('created_at', 'desc')->first('created_at');
+        $from =  date('d.m.Y.', strtotime($first_created_at->created_at));
+        $to =  date('d.m.Y.', strtotime($latest_created_at->created_at . " +1 days"));
+
+        $information = Information::orderBy('created_at', 'desc')->paginate(10);
+
+        return view('employee')->with('information', $information)
+            ->with('from', $from)
+            ->with('to', $to);
+    }
+
+    public function searchInformation(Request $request) {
+        if ($request->created_at_from!="") {
+            $this->validate($request, [
+                'created_at_to' => 'required',
+            ]);
+        }
+        if ($request->created_at_to!="") {
+            $this->validate($request, [
+                'created_at_from' => 'required',
+            ]);
+        }
+
+        $program_id = "";
+        $grade = "";
+        $first_created_at = DB::table('information')->orderBy('created_at', 'asc')->first('created_at');
+        $latest_created_at = DB::table('information')->orderBy('created_at', 'desc')->first('created_at');
+        $from =  date('d.m.Y.', strtotime($first_created_at->created_at));
+        $to =  date('d.m.Y.', strtotime($latest_created_at->created_at . " +1 days"));
+        //dd($to);
+
+        if ($request->program_id=="" && $request->grade=="" && $request->created_at_from=="" && $request->created_at_to=="") {
+            $result = Information::orderBy('created_at', 'desc')->paginate(10);
+        }
+        if ($request->program_id=="" && $request->grade=="" && $request->created_at_from!="" && $request->created_at_to!="") {
+            $from = date('Y-m-d H:i:s', strtotime($request->created_at_from));
+            $to = date('Y-m-d H:i:s', strtotime($request->created_at_to));
+
+            $result = Information::whereBetween('created_at', [$from, $to])->orderBy('created_at', 'desc')->paginate(10);
+        }
+        if ($request->program_id=="" && $request->grade!="" && $request->created_at_from=="" && $request->created_at_to=="") {
+            $grade = $request->grade;
+            $result = Information::where('grade', 'LIKE', '%'.$request->grade.'%')->orderBy('created_at', 'desc')->paginate(10);
+        }
+        if ($request->program_id!="" && $request->grade=="" && $request->created_at_from=="" && $request->created_at_to=="") {
+            $program_id = $request->program_id;
+            $result = Information::where('program_id', 'LIKE', '%'.$request->program_id.'%')->orderBy('created_at', 'desc')->paginate(10);
+        }
+        if ($request->program_id!="" && $request->grade!="" && $request->created_at_from=="" && $request->created_at_to=="") {
+            $program_id = $request->program_id;
+            $grade = $request->grade;
+            $result = Information::where('program_id', 'LIKE', '%'.$request->program_id.'%')->
+                where('grade', 'LIKE', '%'.$request->grade.'%')->orderBy('created_at', 'desc')->paginate(10);
+        }
+        if ($request->program_id!="" && $request->grade=="" && $request->created_at_from!="" && $request->created_at_to!="") {
+            $program_id = $request->program_id;
+            $from = date('Y-m-d H:i:s', strtotime($request->created_at_from));
+            $to = date('Y-m-d H:i:s', strtotime($request->created_at_to));
+
+            $result = Information::whereBetween('created_at', [$from, $to])
+                ->where('program_id', 'LIKE', '%'.$request->program_id.'%')
+                ->orderBy('created_at', 'desc')->paginate(10);
+        }
+        if ($request->program_id=="" && $request->grade!="" && $request->created_at_from!="" && $request->created_at_to!="") {
+            $grade = $request->grade;
+            $from = date('Y-m-d H:i:s', strtotime($request->created_at_from));
+            $to = date('Y-m-d H:i:s', strtotime($request->created_at_to));
+
+            $result = Information::whereBetween('created_at', [$from, $to])
+                ->where('grade', 'LIKE', '%'.$request->grade.'%')
+                ->orderBy('created_at', 'desc')->paginate(10);
+        }
+        if ($request->program_id!="" && $request->grade!="" && $request->created_at_from!="" && $request->created_at_to!="") {
+            $program_id = $request->program_id;
+            $grade = $request->grade;
+            $from = date('Y-m-d H:i:s', strtotime($request->created_at_from));
+            $to = date('Y-m-d H:i:s', strtotime($request->created_at_to));
+
+            $result = Information::whereBetween('created_at', [$from, $to])
+                ->where('program_id', 'LIKE', '%'.$request->program_id.'%')
+                ->where('grade', 'LIKE', '%'.$request->grade.'%')
+                ->orderBy('created_at', 'desc')->paginate(10);
+        }
+
+        return view('employee.searchInformation')->with('information', $result)
+            ->with('program_id', $program_id)
+            ->with('grade', $grade)
+            ->with('from', $from)
+            ->with('to', $to);
+    }
+
+    public function createInformation()
+    {
+        $programs = Program::all();
+        return view('employee.createInformation')->with('programs', $programs);
+    }
+
+    public function storeInformation(Request $request) {
+        $this->validate($request, [
+            'program_id' => 'required',
+            'grade' => 'required',
+            'text' => 'required',
+        ]);
+
+        if ($request->program_id == 'all' && $request->grade != 'all') {
+            $programs = Program::all();
+
+            foreach ($programs as $program) {
+                $information = new Information();
+
+                $information->program_id = $program->id;
+                $information->grade = $request->grade;
+                $information->text = $request->text;
+
+                $information->save();
+            }
+        }
+        if ($request->program_id != 'all' && $request->grade == 'all') {
+            $grade = 4;
+
+            while ($grade > 0) {
+                $information = new Information();
+
+                $information->program_id = $request->program_id;
+                $information->grade = $grade;
+                $information->text = $request->text;
+
+                $grade--;
+
+                $information->save();
+            }
+        }
+        if ($request->program_id == 'all' && $request->grade == 'all') {
+            $programs = Program::all();
+
+            foreach ($programs as $program) {
+                $grade = 4;
+
+                while ($grade > 0) {
+                    $information = new Information();
+
+                    $information->program_id = $program->id;
+                    $information->grade = $grade;
+                    $information->text = $request->text;
+
+                    $grade--;
+
+                    $information->save();
+                }
+            }
+        }
+        if ($request->program_id != 'all' && $request->grade != 'all') {
+            $information = new Information();
+
+            $information->program_id = $request->program_id;
+            $information->grade = $request->grade;
+            $information->text = $request->text;
+        }
+
+        if ($information->save()) {
+            Session::flash('createInformation_success');
+            return redirect()->route('employee.dashboard');
+        } else {
+            Session::flash('createInformation_failed');
+            return redirect()->route('employee.createInformation');
+        }
+    }
+
+    public function editInformation($id) {
+        $information = Information::findOrFail($id);
+        return view('employee.editInformation')->withInformation($information);
+    }
+
+    public function updateInformation(Request $request, $id) {
+        $this->validate($request, [
+            'text' => 'required',
+        ]);
+
+        $information = Information::findOrFail($id);
+        $information->text = $request->text;
+
+        if ($information->save()) {
+            Session::flash('updateInformation_success');
+            return redirect()->route('employee.dashboard');
+        } else {
+            Session::flash('updateInformation_failed');
+            return redirect()->route('employee.editInformation');
+        }
+    }
+
+    public function destroyInformation($id) {
+        $information = Information::findOrFail($id);
+
+        if ($information->delete()) {
+            Session::flash('deleteInformation_success');
+            return redirect()->route('employee.dashboard');
+        } else {
+            Session::flash('deleteInformation_failed');
+            return redirect()->route('employee.dashboard');
+        }
     }
 
     public function showPrograms()
@@ -79,7 +279,7 @@ class EmployeeController extends Controller
         }
     }
 
-        public function editProgram($id) {
+    public function editProgram($id) {
         $program = Program::findOrFail($id);
         return view('employee.editProgram')->withProgram($program);
     }

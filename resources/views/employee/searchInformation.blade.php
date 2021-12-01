@@ -39,9 +39,10 @@
                     <div>
                         <label for="program_id">Студијски програм</label>
                         <select class="custom-select text-center" id="program_id" name="program_id">
-                            <option value="" selected>Сви студијски програми</option>
+                            <option value="" @if($program_id == "")selected @endif>Сви студијски програми</option>
+                            {{--<option value="" selected>Сви студијски програми</option>--}}
                             @foreach(\App\Program::all() as $program)
-                                <option value="{{ $program->id }}">{{ $program->name }}</option>
+                                <option value="{{ $program->id }}" @if($program_id == $program->id)selected @endif>{{ $program->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -49,11 +50,11 @@
                     <div>
                         <label for="grade">Година студија</label>
                         <select class="custom-select" id="grade" name="grade">
-                            <option value="" selected>Све године</option>
-                            <option value="1">I година</option>
-                            <option value="2">II година</option>
-                            <option value="3">III година</option>
-                            <option value="4">IV година</option>
+                            <option value="" @if($grade == "")selected @endif>Све године</option>
+                            <option value="1" @if($grade == "1")selected @endif>I година</option>
+                            <option value="2" @if($grade == "2")selected @endif>II година</option>
+                            <option value="3" @if($grade == "3")selected @endif>III година</option>
+                            <option value="4" @if($grade == "4")selected @endif>IV година</option>
                         </select>
                     </div>
 
@@ -62,6 +63,7 @@
                         <div class="form-group">
                             од&nbsp
                             <div class="input-group mr-3">
+                                {{-- date('d.m.Y.', strtotime($from)) --}}
                                 <input type="text" class="form-control datepicker bg-white text-center @error('created_at_from') is-invalid @enderror" style="width: 120px" id="created_at_from" name="created_at_from" value="{{ date('d.m.Y.', strtotime($from)) }}" readonly>
                                 <span class="input-group-append border-left-0">
                                     <span class="input-group-text bg-white">
@@ -146,7 +148,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="card-body pt-3">
                     <div class="text-muted pb-3">
                         {{ $info->created_at->format('d.m.Y.') }}
@@ -160,8 +161,7 @@
             </div>
         @endforelse
 
-        {{-- $information->appends(request()->input())->links() --}}
-        {{ $information->links() }}
+        {{ $information->appends(request()->input())->links() }}
     </div>
 
     <!-- Modal Date Required Message -->
@@ -173,62 +173,6 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     Нисте дефинисали временски опсег за претрагу.
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Create Information Success Message -->
-    <div class="modal" id="createInformation_success" tabindex="-1" aria-labelledby="createInformation_success" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb;">
-                <div class="modal-body text-center">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    Успешно сте креирали обавештење.
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Delete Information Success Message -->
-    <div class="modal" id="deleteInformation_success" tabindex="-1" aria-labelledby="deleteInformation_success" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb;">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    Успешно сте избрисали обавештење.
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Delete Information Failed Message -->
-    <div class="modal" id="deleteInformation_failed" tabindex="-1" aria-labelledby="deleteInformation_failed" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb;">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    Неуспешно брисање обавештења. Покушајте поново.
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Update Information Success Message -->
-    <div class="modal" id="updateInformation_success" tabindex="-1" aria-labelledby="updateInformation_success" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb;">
-                <div class="modal-body text-center">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    Успешно сте изменили обавештење.
                 </div>
             </div>
         </div>

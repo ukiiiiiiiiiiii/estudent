@@ -1,4 +1,4 @@
-    @foreach($programs as $program)
+    @forelse($programs as $program)
         <tr>
             <td class="pt-3">{{ $program->name }}</td>
             <td class="pt-3 text-center">{{ $program->code }}</td>
@@ -22,7 +22,13 @@
                 </div>
             </td>
         </tr>
-    @endforeach
+    @empty
+        <tr>
+            <td colspan="3" class="text-center">
+            Нема резултата претраге
+            </td>
+        </tr>
+    @endforelse
     <tr>
         <td colspan="3">{{ $programs->links() }}</td>
     </tr>

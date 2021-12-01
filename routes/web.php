@@ -15,6 +15,17 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('employee/test', function () {
+    $program = \App\Program::where('id', 2)->get();
+
+    $program->information()->create([
+        'grade' => '1',
+        'text' => 'pickin dim',
+    ]);
+
+    dd($program->information);
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -36,6 +47,12 @@ Route::prefix('employee')->group(function() {
     Route::get('/login', 'Auth\EmployeeLoginController@showLoginForm')->name('employee.login');
     Route::post('/login', 'Auth\EmployeeLoginController@login')->name('employee.login.submit');
     Route::post('/logout', 'Auth\EmployeeLoginController@logout')->name('employee.logout');
+    Route::get('/searchInformation', 'EmployeeController@searchInformation')->name('employee.searchInformation');
+    Route::get('/createInformation', 'EmployeeController@createInformation')->name('employee.createInformation');
+    Route::post('/storeInformation', 'EmployeeController@storeInformation')->name('employee.storeInformation');
+    Route::get('/editInformation/{id}', 'EmployeeController@editInformation')->name('employee.editInformation');
+    Route::post('/updateInformation/{id}', 'EmployeeController@updateInformation')->name('employee.updateInformation');
+    Route::get('/destroyInformation/{id}', 'EmployeeController@destroyInformation')->name('employee.destroyInformation');
     Route::get('/createProgram', 'EmployeeController@createProgram')->name('employee.createProgram');
     Route::get('/showPrograms', 'EmployeeController@showPrograms')->name('employee.showPrograms');
     Route::post('/storeProgram', 'EmployeeController@storeProgram')->name('employee.storeProgram');

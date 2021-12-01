@@ -11,8 +11,12 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('fontawesome/css/all.css') }}" rel="stylesheet">
+    <link href="{{ asset('bootstrap-datepicker/css/bootstrap-datepicker.css') }}" rel="stylesheet">
     <script src="{{ asset('js/app.js') }}"></script>
+    {{--
     <script src="{{ asset('js/searchPrograms.js') }}"></script>
+    --}}
+    <script src="{{ asset('bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 </head>
 <body class="wrapper">
 <header>
@@ -108,5 +112,62 @@
         });
     </script>
 @endif
+
+@if(Session::has('createInformation_success'))
+    <script>
+        $(function() {
+            $('#createInformation_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('createInformation_failed'))
+    <script>
+        $(function() {
+            $('#createInformation_failed').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('deleteInformation_success'))
+    <script>
+        $(function() {
+            $('#deleteInformation_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('deleteInformation_failed'))
+    <script>
+        $(function() {
+            $('#deleteInformation_failed').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('updateInformation_success'))
+    <script>
+        $(function() {
+            $('#updateInformation_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('updateInformation_failed'))
+    <script>
+        $(function() {
+            $('#updateInformation_failed').modal('show');
+        });
+    </script>
+@endif
+
+<script>
+    $(".datepicker").datepicker({
+        format: "dd.mm.yyyy.",
+        weekStart: 1,
+        autoclose: true,
+    })
+</script>
+
 </body>
 </html>

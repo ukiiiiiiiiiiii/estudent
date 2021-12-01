@@ -11,4 +11,8 @@ class Program extends Model
     protected $fillable = [
         'name', 'code',
     ];
+
+    public function information() {
+        return $this->hasMany(Information::class);
+    }
 }

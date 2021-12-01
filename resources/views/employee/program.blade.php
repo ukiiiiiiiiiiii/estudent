@@ -5,8 +5,8 @@
         <li id="dropdown-tab" class="nav-item dropdown mr-1">
             <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Огласна табла</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Прикажи обавештења</a>
-                <a class="dropdown-item" href="#">Креирај обавештење</a>
+                <a class="dropdown-item" href="{{ route('employee.dashboard') }}">Прикажи обавештења</a>
+                <a class="dropdown-item" href="{{ route('employee.createInformation') }}">Креирај обавештење</a>
                 <a class="dropdown-item disabled" href="#">Измени обавештење</a>
             </div>
         </li>
@@ -118,5 +118,7 @@
             </div>
         </div>
     </div>
+
+    <script src="{{ asset('js/searchPrograms.js') }}"></script>
 @endsection
 

@@ -1,4 +1,4 @@
-@extends('layouts.admin-app')
+@extends('layouts.employee-app')
 
 @section('content')
     <ul class="nav nav-tabs justify-content-center">
@@ -66,6 +66,7 @@
                 <div class="row pt-2 pb-3">
                     <div class="offset-md-4 col-md-8">
                         <button type="submit" class="btn btn-primary">Потврди</button>
+                        <a href="{{ route('employee.showPrograms') }}" class="btn btn-danger">Одустани</a>
                     </div>
                 </div>
             </form>

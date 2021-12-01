@@ -1,4 +1,4 @@
-    @foreach($employees as $employee)
+    @forelse($employees as $employee)
         <tr>
             <td class="pt-3">{{ $employee->name }}</td>
             <td class="pt-3">{{ $employee->username }}</td>
@@ -21,7 +21,13 @@
                 </div>
             </td>
         </tr>
-    @endforeach
+    @empty
+        <tr>
+            <td colspan="3" class="text-center">
+                Нема резултата претраге
+            </td>
+        </tr>
+    @endforelse
     <tr>
         <td colspan="3">{{ $employees->links() }}</td>
     </tr>

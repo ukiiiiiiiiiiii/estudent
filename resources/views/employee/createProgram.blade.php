@@ -1,12 +1,12 @@
-@extends('layouts.admin-app')
+@extends('layouts.employee-app')
 
 @section('content')
     <ul class="nav nav-tabs justify-content-center">
         <li id="dropdown-tab" class="nav-item dropdown mr-1">
             <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Огласна табла</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Прикажи обавештења</a>
-                <a class="dropdown-item" href="#">Креирај обавештење</a>
+                <a class="dropdown-item" href="{{ route('employee.dashboard') }}">Прикажи обавештења</a>
+                <a class="dropdown-item" href="{{ route('employee.createInformation') }}">Креирај обавештење</a>
                 <a class="dropdown-item disabled" href="#">Измени обавештење</a>
             </div>
         </li>
@@ -14,7 +14,7 @@
             <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Студијски програми</a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{ route('employee.showPrograms') }}">Прикажи студијске програме</a>
-                <a class="dropdown-item active disabled" href="#">Креирај студијски програм</a>
+                <a class="dropdown-item active disabled" href="{{ route('employee.createProgram') }}">Креирај студијски програм</a>
                 <a class="dropdown-item disabled" href="#">Измени студијски програм</a>
             </div>
         </li>
@@ -74,6 +74,7 @@
                 <div class="row pt-2 pb-3">
                     <div class="offset-md-4 col-md-8">
                         <button type="submit" class="btn btn-primary">Потврди</button>
+                        <a href="{{ route('employee.showPrograms') }}" class="btn btn-danger">Одустани</a>
                     </div>
                 </div>
             </form>
