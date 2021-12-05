@@ -7,11 +7,20 @@
     <list default="true" id="1819c881-407f-4551-a89f-3e306f07ab8e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EmployeeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EmployeeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Program.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Program.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_12_15_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_11_24_185701_create_programs_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_11_24_185701_create_programs_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/validation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/employee/createInformation.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/createInformation.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/employee/createProgram.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/createProgram.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/createSubject.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/createSubject.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/employee/editInformation.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/editInformation.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/employee/editProgram.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/editProgram.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/editSubject.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/editSubject.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/employee/programs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/programs.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/programs_data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/programs_data.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/employee/searchInformation.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/searchInformation.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/employee/subjects.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/subjects.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/employee/subjects_data.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/subjects_data.blade.php" afterDir="false" />
@@ -155,7 +164,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/employee" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="Laravel.SettingsForm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -188,7 +197,9 @@
       <updated>1636008600303</updated>
       <workItem from="1636008649833" duration="695000" />
       <workItem from="1636700399659" duration="2156000" />
-      <workItem from="1636714580083" duration="278587000" />
+      <workItem from="1636714580083" duration="280309000" />
+      <workItem from="1638691709499" duration="99000" />
+      <workItem from="1638691819987" duration="27409000" />
     </task>
     <servers />
   </component>
@@ -205,5 +216,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

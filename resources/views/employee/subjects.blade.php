@@ -26,8 +26,13 @@
                 <a class="dropdown-item disabled" href="#">Измени предмет</a>
             </div>
         </li>
-        <li id="tab" class="nav-item mr-1">
-            <a class="nav-link" href="#">Студенти</a>
+        <li id="dropdown-tab" class="nav-item dropdown mr-1">
+            <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Студенти</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ route('employee.showUsers') }}">Прикажи студенте</a>
+                <a class="dropdown-item" href="{{ route('employee.createUser') }}">Додај студента</a>
+                <a class="dropdown-item disabled" href="#">Измени податке о студенту</a>
+            </div>
         </li>
         <li id="tab" class="nav-item mr-1">
             <a class="nav-link" href="#">Распоред наставе</a>
@@ -57,7 +62,7 @@
                     <th class="col-md-4 text-center border-bottom-0">Студијски програм</th>
                     <th class="col-md-2 text-center border-bottom-0">Година студија</th>
                     <th class="col-md-2 text-center border-bottom-0">ЕСПБ</th>
-                    <th class="col-md-1 text-center border-bottom-0"></th>
+                    <th class="col-md-1 text-center border-bottom-0">Акција</th>
                 </tr>
             </thead>
         </table>

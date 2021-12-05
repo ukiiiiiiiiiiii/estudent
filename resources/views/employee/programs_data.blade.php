@@ -1,7 +1,6 @@
     @forelse($programs as $program)
         <tr>
             <td class="pt-3">{{ $program->name }}</td>
-            <td class="pt-3 text-center">{{ $program->code }}</td>
             <td class="text-center">
                 <a href="{{ route('employee.editProgram', ['id' => $program->id]) }}" class="btn btn-sm btn-info">Измени</a>
 

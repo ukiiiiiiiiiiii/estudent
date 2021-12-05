@@ -209,6 +209,53 @@
     </script>
 @endif
 
+@if(Session::has('createUser_success'))
+    <script>
+        $(function() {
+            $('#createUser_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('createUser_failed'))
+    <script>
+        $(function() {
+            $('#createUser_failed').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('updateUser_success'))
+    <script>
+        $(function() {
+            $('#updateUser_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('updateUser_failed'))
+    <script>
+        $(function() {
+            $('#updateUser_failed').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('deleteUser_success'))
+    <script>
+        $(function() {
+            $('#deleteUser_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('deleteUser_failed'))
+    <script>
+        $(function() {
+            $('#deleteUser_failed').modal('show');
+        });
+    </script>
+@endif
 <script>
     $(".datepicker").datepicker({
         format: "dd.mm.yyyy.",

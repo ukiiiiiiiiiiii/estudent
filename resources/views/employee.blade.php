@@ -18,11 +18,21 @@
                 <a class="dropdown-item disabled" href="#">Измени студијски програм</a>
             </div>
         </li>
-        <li id="tab" class="nav-item mr-1">
-            <a class="nav-link" href="#">Предмети</a>
+        <li id="dropdown-tab" class="nav-item dropdown mr-1">
+            <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Предмети</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ route('employee.showSubjects') }}">Прикажи предмете</a>
+                <a class="dropdown-item" href="{{ route('employee.createSubject') }}">Креирај предмет</a>
+                <a class="dropdown-item disabled" href="#">Измени предмет</a>
+            </div>
         </li>
-        <li id="tab" class="nav-item mr-1">
-            <a class="nav-link" href="#">Студенти</a>
+        <li id="dropdown-tab" class="nav-item dropdown mr-1">
+            <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Студенти</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ route('employee.showUsers') }}">Прикажи студенте</a>
+                <a class="dropdown-item" href="{{ route('employee.createUser') }}">Додај студента</a>
+                <a class="dropdown-item disabled" href="#">Измени податке о студенту</a>
+            </div>
         </li>
         <li id="tab" class="nav-item mr-1">
             <a class="nav-link" href="#">Распоред наставе</a>

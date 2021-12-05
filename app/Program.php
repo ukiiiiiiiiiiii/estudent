@@ -9,7 +9,7 @@ class Program extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name', 'code',
+        'name',
     ];
 
     public function information() {
@@ -18,5 +18,9 @@ class Program extends Model
 
     public function subjects() {
         return $this->hasMany(Subject::class);
+    }
+
+    public function users() {
+        return $this->hasMany(User::class);
     }
 }

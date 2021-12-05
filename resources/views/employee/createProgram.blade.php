@@ -26,8 +26,13 @@
                 <a class="dropdown-item disabled" href="#">Измени предмет</a>
             </div>
         </li>
-        <li id="tab" class="nav-item mr-1">
-            <a class="nav-link" href="#">Студенти</a>
+        <li id="dropdown-tab" class="nav-item dropdown mr-1">
+            <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Студенти</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ route('employee.showUsers') }}">Прикажи студенте</a>
+                <a class="dropdown-item" href="{{ route('employee.createUser') }}">Додај студента</a>
+                <a class="dropdown-item disabled" href="#">Измени податке о студенту</a>
+            </div>
         </li>
         <li id="tab" class="nav-item mr-1">
             <a class="nav-link" href="#">Распоред наставе</a>
@@ -63,19 +68,6 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label for="code" class="col-md-4 col-form-label text-md-right">Шифра студијског програма</label>
-
-                    <div class="col-md-8">
-                        <input id="code" type="text" class="col-md-2 form-control @error('code') is-invalid @enderror" name="code" value="{{ old('code') }}" required oninvalid="this.setCustomValidity('Унесите шифру студијског програма!')" oninput="setCustomValidity('')">
-
-                        @error('code')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                </div>
                 <div class="row pt-2 pb-3">
                     <div class="offset-md-4 col-md-8">
                         <button type="submit" class="btn btn-primary">Потврди</button>

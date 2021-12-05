@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Information;
 use App\Program;
 use App\Subject;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
@@ -27,6 +29,10 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+    /**
+     * Oglasna tabla
+     **/
     public function index()
     {
         if (count(Information::all()) == 0) {
@@ -242,6 +248,91 @@ class EmployeeController extends Controller
         }
     }
 
+    /**
+     * Studijski programi
+     **/
+    public function showPrograms()
+    {
+        $programs = DB::table('programs')->orderBy('name', 'asc')->paginate(10);
+        return view('employee.programs', compact('programs'));
+    }
+
+    public function fetch_programs_data(Request $request) {
+        if($request->ajax()) {
+            $sort_by = $request->get('sortby');
+            $sort_type = $request->get('sorttype');
+            $query = $request->get('query');
+            $query = str_replace(" ", "%", $query);
+
+            $programs = DB::table('programs')
+                ->where('name', 'like', '%'.$query.'%')
+                ->orderBy($sort_by, $sort_type)
+                ->paginate(10);
+
+            return view('employee.programs_data', compact('programs'))->render();
+        }
+    }
+
+    public function createProgram()
+    {
+        return view('employee.createProgram');
+    }
+
+    public function storeProgram(Request $request) {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+        ]);
+
+        $program = new Program();
+
+        $program->name = $request->name;
+
+        if ($program->save()) {
+            Session::flash('createProgram_success');
+            return redirect()->route('employee.showPrograms')->with(['programName' => $program->name]);
+        } else {
+            Session::flash('createProgram_failed');
+            return redirect()->route('employee.createProgram');
+        }
+    }
+
+    public function editProgram($id) {
+        $program = Program::findOrFail($id);
+        return view('employee.editProgram')->withProgram($program);
+    }
+
+    public function updateProgram(Request $request, $id) {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+        ]);
+
+        $program = Program::findOrFail($id);
+        $program->name = $request->name;
+
+        if ($program->save()) {
+            Session::flash('updateProgram_success');
+            return redirect()->route('employee.showPrograms')->with(['programName' => $program->name]);
+        } else {
+            Session::flash('updateProgram_failed');
+            return redirect()->route('employee.editProgram');
+        }
+    }
+
+    public function destroyProgram($id) {
+        $program = Program::findOrFail($id);
+
+        if ($program->delete()) {
+            Session::flash('deleteProgram_success');
+            return redirect()->route('employee.showPrograms');
+        } else {
+            Session::flash('deleteProgram_failed');
+            return redirect()->route('employee.showPrograms');
+        }
+    }
+
+    /**
+     * Predmeti
+     **/
     public function showSubjects()
     {
         $subjects = Subject::orderBy('program_id', 'asc')->orderBy('grade', 'asc')->orderBy('name', 'asc')->get();
@@ -391,85 +482,122 @@ class EmployeeController extends Controller
         }
     }
 
-    public function showPrograms()
+    /**
+     * Studenti
+     **/
+    public function showUsers()
     {
-        $programs = DB::table('programs')->orderBy('name', 'asc')->paginate(10);
-        return view('employee.programs', compact('programs'));
+        $users = User::orderBy('program_id', 'asc')->orderBy('rank', 'desc')->orderBy('grade', 'asc')->orderBy('espb', 'asc')->get();
+        return view('employee.users', compact('users'));
     }
 
-    public function fetch_programs_data(Request $request) {
+    public function fetch_users_data(Request $request) {
         if($request->ajax()) {
-            $sort_by = $request->get('sortby');
-            $sort_type = $request->get('sorttype');
             $query = $request->get('query');
             $query = str_replace(" ", "%", $query);
 
-            $programs = DB::table('programs')
-                ->where('name', 'like', '%'.$query.'%')
-                ->orWhere('code', 'like', '%'.$query.'%')
-                ->orderBy($sort_by, $sort_type)
-                ->paginate(10);
+            $users = User::join('programs', 'users.program_id', '=', 'programs.id')
+                ->select('users.*', 'programs.name as program_name')
+                ->where('programs.name', 'like', '%'. $query .'%')
+                ->orWhere('users.name', 'like', '%'. $query .'%')
+                ->orWhere('username', 'like', '%'. $query .'%')
+                ->orWhere('grade', 'like', '%'. $query .'%')
+                ->orWhere('espb', 'like', '%'. $query .'%')
+                ->orderBy('program_id', 'asc')
+                ->orderBy('rank', 'desc')
+                ->orderBy('grade', 'asc')
+                ->orderBy('espb', 'asc')
+                ->get();
 
-            return view('employee.programs_data', compact('programs'))->render();
+            //dd($users);
+
+            return view('employee.users_data', compact('users'))->render();
         }
     }
 
-    public function createProgram()
+    public function createUser()
     {
-        return view('employee.createProgram');
+       if (count(User::all()) < 1) {
+           $latestRank = DB::table('users')->orderBy('rank', 'desc')->first('rank');
+           $nextRank = $latestRank+1;
+       } elseif (count(User::all()) > 0) {
+           $latestRank = DB::table('users')->orderBy('rank', 'desc')->first('rank');
+           $nextRank = $latestRank->rank+1;
+       }
+
+        $programs = Program::all();
+        return view('employee.createUser')->with('programs', $programs)->with('nextRank', $nextRank);
     }
 
-    public function storeProgram(Request $request) {
+    public function storeUser(Request $request) {
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'code' => 'required|string|max:1|unique:programs',
+            'username' => 'required|string|max:255|unique:users',
+            'password' => 'required|numeric|digits:13',
+            'program_id' => 'required',
+            'budget' => 'required|string|max:1',
+            'rank' => 'required|numeric',
         ]);
 
-        $program = new Program();
+        $user = new User();
 
-        $program->name = $request->name;
-        $program->code = $request->code;
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->password = Hash::make($request->password);
+        $user->program_id = $request->program_id;
+        $user->budget = $request->budget;
+        $user->rank = $request->rank;
 
-        if ($program->save()) {
-            Session::flash('createProgram_success');
-            return redirect()->route('employee.showPrograms')->with(['programName' => $program->name]);
+        if ($user->save()) {
+            Session::flash('createUser_success');
+            return redirect()->route('employee.showUsers')->with(['userName' => $user->name]);
         } else {
-            Session::flash('createProgram_failed');
-            return redirect()->route('employee.createProgram');
+            Session::flash('createUser_failed');
+            return redirect()->route('employee.createUser');
         }
     }
 
-    public function editProgram($id) {
-        $program = Program::findOrFail($id);
-        return view('employee.editProgram')->withProgram($program);
+    public function editUser($id) {
+        $user = User::findOrFail($id);
+        $programs = Program::all();
+        return view('employee.editUser')->withUser($user)->withPrograms($programs);
     }
 
-    public function updateProgram(Request $request, $id) {
+    public function updateUser(Request $request, $id) {
         $this->validate($request, [
             'name' => 'required|string|max:255',
+            'program_id' => 'required',
+            'grade' => 'required|numeric',
+            'budget' => 'required|string|max:1',
+            'espb' => 'required|numeric'
         ]);
 
-        $program = Program::findOrFail($id);
-        $program->name = $request->name;
+        $user = User::findOrFail($id);
 
-        if ($program->save()) {
-            Session::flash('updateProgram_success');
-            return redirect()->route('employee.showPrograms')->with(['programName' => $program->name]);
+        $user->name = $request->name;
+        $user->program_id = $request->program_id;
+        $user->grade = $request->grade;
+        $user->budget = $request->budget;
+        $user->espb = $request->espb;
+
+        if ($user->save()) {
+            Session::flash('updateUser_success');
+            return redirect()->route('employee.showUsers')->with(['userName' => $user->name]);
         } else {
-            Session::flash('updateProgram_failed');
-            return redirect()->route('employee.editProgram');
+            Session::flash('updateUser_failed');
+            return redirect()->route('employee.editUser');
         }
     }
 
-    public function destroyProgram($id) {
-        $program = Program::findOrFail($id);
+    public function destroyUser($id) {
+        $user = User::findOrFail($id);
 
-        if ($program->delete()) {
-            Session::flash('deleteProgram_success');
-            return redirect()->route('employee.showPrograms');
+        if ($user->delete()) {
+            Session::flash('deleteUser_success');
+            return redirect()->route('employee.showUsers');
         } else {
-            Session::flash('deleteProgram_failed');
-            return redirect()->route('employee.showPrograms');
+            Session::flash('deleteUser_failed');
+            return redirect()->route('employee.showUsers');
         }
     }
 }

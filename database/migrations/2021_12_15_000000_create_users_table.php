@@ -15,17 +15,18 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('program_id')->index();
             $table->string('name');
             $table->string('username')->unique(); //indeks
             $table->string('password'); //jmbg
-            /*$table->boolean('budget');
-            $table->bigIncrements('course_id')->references('id')->on('courses');
-            $table->integer('rank');
-            $table->year('enrollment');
-            $table->integer('grade');
-            $table->integer('espb')->default(0);
-            $table->integer('money')->default(0);*/
+            $table->char('budget', '1');
+            $table->smallInteger('rank');
+            $table->smallInteger('grade')->default(1);
+            $table->smallInteger('espb')->default(0);
+            $table->integer('money')->default(0);
             $table->rememberToken();
+
+            $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
         });
     }
 

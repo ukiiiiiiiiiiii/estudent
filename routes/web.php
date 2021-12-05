@@ -47,12 +47,22 @@ Route::prefix('employee')->group(function() {
     Route::get('/login', 'Auth\EmployeeLoginController@showLoginForm')->name('employee.login');
     Route::post('/login', 'Auth\EmployeeLoginController@login')->name('employee.login.submit');
     Route::post('/logout', 'Auth\EmployeeLoginController@logout')->name('employee.logout');
+
     Route::get('/searchInformation', 'EmployeeController@searchInformation')->name('employee.searchInformation');
     Route::get('/createInformation', 'EmployeeController@createInformation')->name('employee.createInformation');
     Route::post('/storeInformation', 'EmployeeController@storeInformation')->name('employee.storeInformation');
     Route::get('/editInformation/{id}', 'EmployeeController@editInformation')->name('employee.editInformation');
     Route::post('/updateInformation/{id}', 'EmployeeController@updateInformation')->name('employee.updateInformation');
     Route::get('/destroyInformation/{id}', 'EmployeeController@destroyInformation')->name('employee.destroyInformation');
+
+    Route::get('/showPrograms', 'EmployeeController@showPrograms')->name('employee.showPrograms');
+    Route::get('/fetch_programs_data', 'EmployeeController@fetch_programs_data');
+    Route::get('/createProgram', 'EmployeeController@createProgram')->name('employee.createProgram');
+    Route::post('/storeProgram', 'EmployeeController@storeProgram')->name('employee.storeProgram');
+    Route::get('/editProgram/{id}', 'EmployeeController@editProgram')->name('employee.editProgram');
+    Route::post('/updateProgram/{id}', 'EmployeeController@updateProgram')->name('employee.updateProgram');
+    Route::get('/destroyProgram/{id}', 'EmployeeController@destroyProgram')->name('employee.destroyProgram');
+
     Route::get('/showSubjects', 'EmployeeController@showSubjects')->name('employee.showSubjects');
     Route::get('/fetch_subjects_data', 'EmployeeController@fetch_subjects_data');
     Route::get('/createSubject', 'EmployeeController@createSubject')->name('employee.createSubject');
@@ -60,12 +70,14 @@ Route::prefix('employee')->group(function() {
     Route::get('/editSubject/{id}', 'EmployeeController@editSubject')->name('employee.editSubject');
     Route::post('/updateSubject/{id}', 'EmployeeController@updateSubject')->name('employee.updateSubject');
     Route::get('/destroySubject/{id}', 'EmployeeController@destroySubject')->name('employee.destroySubject');
-    Route::get('/createProgram', 'EmployeeController@createProgram')->name('employee.createProgram');
-    Route::get('/showPrograms', 'EmployeeController@showPrograms')->name('employee.showPrograms');
-    Route::post('/storeProgram', 'EmployeeController@storeProgram')->name('employee.storeProgram');
-    Route::get('/editProgram/{id}', 'EmployeeController@editProgram')->name('employee.editProgram');
-    Route::post('/updateProgram/{id}', 'EmployeeController@updateProgram')->name('employee.updateProgram');
-    Route::get('/destroyProgram/{id}', 'EmployeeController@destroyProgram')->name('employee.destroyProgram');
-    Route::get('/fetch_programs_data', 'EmployeeController@fetch_programs_data');
+
+    Route::get('/showUsers', 'EmployeeController@showUsers')->name('employee.showUsers');
+    Route::get('/fetch_users_data', 'EmployeeController@fetch_users_data');
+    Route::get('/createUser', 'EmployeeController@createUser')->name('employee.createUser');
+    Route::post('/storeUser', 'EmployeeController@storeUser')->name('employee.storeUser');
+    Route::get('/editUser/{id}', 'EmployeeController@editUser')->name('employee.editUser');
+    Route::post('/updateUser/{id}', 'EmployeeController@updateUser')->name('employee.updateUser');
+    Route::get('/destroyUser/{id}', 'EmployeeController@destroyUser')->name('employee.destroyUser');
+
     Route::get('/', 'EmployeeController@index')->name('employee.dashboard');
 });

@@ -18,19 +18,19 @@
                 <a class="dropdown-item disabled" href="#">Измени студијски програм</a>
             </div>
         </li>
-        <li id="dropdown-tab" class="nav-item dropdown active mr-1">
+        <li id="dropdown-tab" class="nav-item dropdown mr-1">
             <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Предмети</a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{ route('employee.showSubjects') }}">Прикажи предмете</a>
-                <a class="dropdown-item active disabled" href="{{ route('employee.createSubject') }}">Креирај предмет</a>
+                <a class="dropdown-item" href="{{ route('employee.createSubject') }}">Креирај предмет</a>
                 <a class="dropdown-item disabled" href="#">Измени предмет</a>
             </div>
         </li>
-        <li id="dropdown-tab" class="nav-item dropdown mr-1">
+        <li id="dropdown-tab" class="nav-item dropdown active mr-1">
             <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Студенти</a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{ route('employee.showUsers') }}">Прикажи студенте</a>
-                <a class="dropdown-item" href="{{ route('employee.createUser') }}">Додај студента</a>
+                <a class="dropdown-item active disabled" href="{{ route('employee.createUser') }}">Додај студента</a>
                 <a class="dropdown-item disabled" href="#">Измени податке о студенту</a>
             </div>
         </li>
@@ -45,23 +45,35 @@
     <div class="card">
         <div class="card-header">
             <div class="row pl-3">
-                <a class="card-navigation-1" href="{{ route('employee.showSubjects') }}">Предмети&nbsp</a>
+                <a class="card-navigation-1" href="{{ route('employee.showUsers') }}">Студенти&nbsp</a>
                 <span><i class="fas fa-angle-right card-navigation-2"></i>&nbsp</span>
-                <a class="card-navigation-2" href="#">Креирај предмет</a>
+                <a class="card-navigation-2" href="#">Додај студента</a>
             </div>
         </div>
         <div class="card-body">
-            <form action="{{ route('employee.storeSubject') }}" method="POST">
+            <form action="{{ route('employee.storeUser') }}" method="POST">
                 @csrf
 
                 <div>
                     <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">Назив предмета</label>
+                        <label for="name" class="col-md-4 col-form-label text-md-right">Име и презиме</label>
 
-                        <input id="name" type="text" class="col-md-6 form-control @error('subject-name') is-invalid @enderror" name="name" value="{{ old('name') }}" required oninvalid="this.setCustomValidity('Унесите назив предмета!')" oninput="setCustomValidity('')" autofocus>
+                        <input id="name" type="text" class="col-md-6 form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required oninvalid="this.setCustomValidity('Унесите име и презиме студента!')" oninput="setCustomValidity('')" autofocus>
 
-                        @error('subject-name')
+                        @error('name')
                         <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="password" class="col-md-4 col-form-label text-md-right">ЈМБГ</label>
+
+                        <input id="password" type="number" class="col-md-6 form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required oninvalid="this.setCustomValidity('Унесите ЈМБГ!')" oninput="setCustomValidity('')">
+
+                        @error('password')
+                        <span class="offset-md-4 invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
@@ -69,52 +81,57 @@
 
                     <div class="form-group row">
                         <label for="program_id" class="col-md-4 col-form-label text-md-right">Студијски програм</label>
+
                         <select class="col-md-6 form-control @error('program_id') is-invalid @enderror" name="program_id" id="program_id">
-                            <option {{ old('program_id') == 'all' ? "selected" : "" }} value="all">Сви студијски програми</option>
+                            <option {{ old('program_id') == '' ? "selected" : "" }} value="">Изабери студијски програм</option>
                             @foreach($programs as $program)
                                 <option {{ old('program_id') == $program->id ? "selected" : "" }} value="{{ $program->id }}">{{ $program->name }}</option>
                             @endforeach
                         </select>
                         @error('program_id')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="offset-md-4 invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
 
                     <div class="form-group row">
-                        <label for="grade" class="col-md-4 col-form-label text-md-right">Година студија</label>
-                        <select class="col-md-3 form-control  @error('grade') is-invalid @enderror" name="grade" id="grade">
-                            <option {{ old('grade') == '' ? "selected" : "" }}  value="">Изабери годину</option>
-                            <option {{ old('grade') == '1' ? "selected" : "" }} value="1">I година</option>
-                            <option {{ old('grade') == '2' ? "selected" : "" }} value="2">II година</option>
-                            <option {{ old('grade') == '3' ? "selected" : "" }} value="3">III година</option>
-                            <option {{ old('grade') == '4' ? "selected" : "" }} value="4">IV година</option>
+                        <label for="budget" class="col-md-4 col-form-label text-md-right">Начин финансирања</label>
+
+                        <select class="col-md-4 form-control  @error('budget') is-invalid @enderror" name="budget" id="budget">
+                            <option {{ old('budget') == '' ? "selected" : "" }}  value="">Изабери начин финансирања</option>
+                            <option {{ old('budget') == 'Б' ? "selected" : "" }} value="Б">Буџет</option>
+                            <option {{ old('budget') == 'С' ? "selected" : "" }} value="С">Самофинансирајући</option>
                         </select>
-                        @error('grade')
+
+                        @error('budget')
                         <span class="offset-md-4 invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label for="espb" class="col-md-4 col-form-label text-md-right">ЕСПБ</label>
+                    <div class="form-group row">
+                        <label for="rank" class="col-md-4 col-form-label text-md-right">Ранг</label>
 
-                    <input id="espb" name="espb" type="number" class="col-md-1 form-control @error('espb') is-invalid @enderror" value="{{ old('espb') }}" required oninvalid="this.setCustomValidity('Унесите број ЕСПБ бодова!')" oninput="setCustomValidity('')">
+                        <input id="rank" type="text" class="col-md-1 form-control @error('username') is-invalid @enderror" name="rank" value="{{ old('rank') }}" required oninvalid="this.setCustomValidity('Унесите позицију на ранг листи!')" oninput="setCustomValidity('')">
 
-                    @error('espb')
-                    <span class="invalid-feedback" role="alert">
+                        @error('username')
+                        <span class="offset-md-4 invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                    @enderror
+                        @enderror
+                    </div>
+
+                    <div class="form-group row">
+                        <input id="username" type="text" class="col-md-1 form-control" name="username" value="{{ old('username') }}" required readonly hidden>
+                    </div>
                 </div>
 
                 <div class="row pt-2 pb-3">
                     <div class="offset-md-4">
-                        <button type="submit" class="btn btn-primary">Потврди</button>
-                        <a href="{{ route('employee.showSubjects') }}" class="btn btn-danger">Одустани</a>
+                        <button onclick="setIndex()" type="submit" class="btn btn-primary">Потврди</button>
+                        <a href="{{ route('employee.showUsers') }}" class="btn btn-danger">Одустани</a>
                     </div>
                 </div>
             </form>
@@ -122,8 +139,8 @@
     </div>
 </div>
 
-<!-- Modal Create Subject Failed Message -->
-<div class="modal" id="createSubject_failed" tabindex="-1" aria-labelledby="createSubject_failed" aria-hidden="true">
+<!-- Modal Create User Failed Message -->
+<div class="modal" id="createUser_failed" tabindex="-1" aria-labelledby="createUser_failed" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb;">
             <div class="modal-body">
@@ -135,4 +152,36 @@
         </div>
     </div>
 </div>
+
+<script>
+    function setIndex() {
+        //Get
+        var program_id = $('#program_id').val();
+
+        var budget = $('#budget').val();
+        var rank = $('#rank').val();
+
+        var rankString = "";
+
+        var strDate = new Date();
+        var shortYear = strDate.getFullYear();
+        var twoDigitYear = shortYear.toString().substr(-2)
+
+        if(rank < 10) {
+            rankString = "000" + rank;
+        }
+        else if(rank < 100) {
+            rankString = "00" + rank;
+        }
+        else if(rank < 1000) {
+            rankString = "0" + rank;
+        }
+        else if(rank < 10000) {
+            rankString = "" + rank + "";
+        }
+
+        //Set
+        $('#username').val(program_id + budget + "/" + rankString + "/" + twoDigitYear);
+    }
+</script>
 @endsection

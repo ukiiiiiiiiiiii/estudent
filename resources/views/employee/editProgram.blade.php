@@ -26,8 +26,13 @@
                 <a class="dropdown-item disabled" href="#">Измени предмет</a>
             </div>
         </li>
-        <li id="tab" class="nav-item mr-1">
-            <a class="nav-link" href="#">Студенти</a>
+        <li id="dropdown-tab" class="nav-item dropdown mr-1">
+            <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Студенти</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ route('employee.showUsers') }}">Прикажи студенте</a>
+                <a class="dropdown-item" href="{{ route('employee.createUser') }}">Додај студента</a>
+                <a class="dropdown-item disabled" href="#">Измени податке о студенту</a>
+            </div>
         </li>
         <li id="tab" class="nav-item mr-1">
             <a class="nav-link" href="#">Распоред наставе</a>
@@ -61,11 +66,6 @@
                         </span>
                         @enderror
                     </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-md-4 col-form-label text-md-right">Шифра студијског програма</div>
-                    <div class="ml-3 form-control" style="width: 38px">{{ $program->code }}</div>
                 </div>
 
                 <div class="row pt-2 pb-3">

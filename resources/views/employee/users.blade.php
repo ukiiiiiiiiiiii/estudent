@@ -10,10 +10,10 @@
                 <a class="dropdown-item disabled" href="#">Измени обавештење</a>
             </div>
         </li>
-        <li id="dropdown-tab" class="nav-item dropdown active mr-1">
+        <li id="dropdown-tab" class="nav-item dropdown mr-1">
             <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Студијски програми</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item active disabled" href="{{ route('employee.showPrograms') }}">Прикажи студијске програме</a>
+                <a class="dropdown-item" href="{{ route('employee.showPrograms') }}">Прикажи студијске програме</a>
                 <a class="dropdown-item" href="{{ route('employee.createProgram') }}">Креирај студијски програм</a>
                 <a class="dropdown-item disabled" href="#">Измени студијски програм</a>
             </div>
@@ -26,10 +26,10 @@
                 <a class="dropdown-item disabled" href="#">Измени предмет</a>
             </div>
         </li>
-        <li id="dropdown-tab" class="nav-item dropdown mr-1">
+        <li id="dropdown-tab" class="nav-item dropdown active mr-1">
             <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Студенти</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="{{ route('employee.showUsers') }}">Прикажи студенте</a>
+                <a class="dropdown-item active disabled" href="{{ route('employee.showUsers') }}">Прикажи студенте</a>
                 <a class="dropdown-item" href="{{ route('employee.createUser') }}">Додај студента</a>
                 <a class="dropdown-item disabled" href="#">Измени податке о студенту</a>
             </div>
@@ -44,7 +44,7 @@
     <div class="container pt-3">
         <div class="row">
             <div class="col-md-6">
-                <a href="{{ route('employee.createProgram') }}" class="btn btn-success">Креирај студијски програм</a>
+                <a href="{{ route('employee.createUser') }}" class="btn btn-success">Додај студента</a>
             </div>
 
             <div class="col-md-3"></div>
@@ -55,79 +55,80 @@
 
         <div class="pb-3"></div>
 
-        <table class="table" id="table_data">
+        <table class="table mb-0">
             <thead class="thead-blue">
-            <tr>
-                <th class="col-md-10 sorting" data-sorting_type="asc" data-column_name="name" style="cursor: pointer"><span id="name_icon"><i class="fas fa-sort pr-1"></i></span>Назив студијског програма</th>
-                <th class="col-md-2 text-center">Акција</th>
-            </tr>
+                <tr>
+                    <th class="col-md-2 text-center border-bottom-0">Име и презиме</th>
+                    <th class="col-md-2 text-center border-bottom-0">Број индекса</th>
+                    <th class="col-md-4 text-center border-bottom-0">Студијски програм</th>
+                    <th class="col-md-2 text-center border-bottom-0">Година студија</th>
+                    <th class="col-md-1 text-center border-bottom-0">ЕСПБ</th>
+                    <th class="col-md-1 text-center border-bottom-0">Акција</th>
+                </tr>
             </thead>
-            <tbody>
-            @include('employee.programs_data')
-            </tbody>
         </table>
 
-        <input type="hidden" name="hidden_page" id="hidden_page" value="1">
-        <input type="hidden" name="hidden_column_name" id="hidden_column_name" value="name">
-        <input type="hidden" name="hidden_sort_type" id="hidden_sort_type" value="asc">
+        <div id="fetch_users_data">
+             @include('employee.users_data')
+        </div>
     </div>
 
-    <!-- Modal Create Program Success Message -->
-    <div class="modal" id="createProgram_success" tabindex="-1" aria-labelledby="createProgram_success" aria-hidden="true">
+    <!-- Modal Create User Success Message -->
+    <div class="modal" id="createUser_success" tabindex="-1" aria-labelledby="createUser_success" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb;">
                 <div class="modal-body text-center">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    Успешно сте креирали студијски програм <br><span class="font-weight-bold">{{ Session::get('programName') }}</span>.
+                    Успешно сте додали студента <br><span class="font-weight-bold">{{ Session::get('userName') }}</span>.
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Update Program Success Message -->
-    <div class="modal" id="updateProgram_success" tabindex="-1" aria-labelledby="updateProgram_success" aria-hidden="true">
+    <!-- Modal Update User Success Message -->
+    <div class="modal" id="updateUser_success" tabindex="-1" aria-labelledby="updateUser_success" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb;">
                 <div class="modal-body text-center">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    Успешно сте изменили студијски програм <br><span class="font-weight-bold">{{ Session::get('programName') }}</span>.
+                    Успешно сте изменили податке о студенту <br><span class="font-weight-bold">{{  Session::get('userName') }}</span>.
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Delete Program Success Message -->
-    <div class="modal" id="deleteProgram_success" tabindex="-1" aria-labelledby="deleteProgram_success" aria-hidden="true">
+    <!-- Modal Delete User Success Message -->
+    <div class="modal" id="deleteUser_success" tabindex="-1" aria-labelledby="deleteUser_success" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb;">
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    Успешно сте избрисали податке.
+                    Успешно сте избрисали податке о студенту.
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Delete Program Failed Message -->
-    <div class="modal" id="deleteProgram_failed" tabindex="-1" aria-labelledby="deleteProgram_failed" aria-hidden="true">
+    <!-- Modal Delete User Failed Message -->
+    <div class="modal" id="deleteUser_failed" tabindex="-1" aria-labelledby="deleteUser_failed" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb;">
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    Неуспешно брисање података. Покушајте поново.
+                    Неуспешно брисање података о студенту. Покушајте поново.
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="{{ asset('js/searchPrograms.js') }}"></script>
+    <script src="{{ asset('js/searchUsers.js') }}"></script>
 @endsection
 
