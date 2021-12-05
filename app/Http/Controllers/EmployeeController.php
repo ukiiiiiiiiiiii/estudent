@@ -259,6 +259,9 @@ class EmployeeController extends Controller
                 ->orWhere('subjects.name', 'like', '%'. $query .'%')
                 ->orWhere('grade', 'like', '%'. $query .'%')
                 ->orWhere('espb', 'like', '%'. $query .'%')
+                ->orderBy('program_id', 'asc')
+                ->orderBy('grade', 'asc')
+                ->orderBy('subjects.name', 'asc')
                 ->get();
 
             return view('employee.subjects_data', compact('subjects'))->render();
@@ -344,6 +347,47 @@ class EmployeeController extends Controller
         } else {
             Session::flash('createSubject_failed');
             return redirect()->route('employee.createSubject');
+        }
+    }
+
+    public function editSubject($id) {
+        $subject = Subject::findOrFail($id);
+        $programs = Program::all();
+        return view('employee.editSubject')->withSubject($subject)->withPrograms($programs);
+    }
+
+    public function updateSubject(Request $request, $id) {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'program_id' => 'required',
+            'grade' => 'required',
+            'espb' => 'required'
+        ]);
+
+        $subject = Subject::findOrFail($id);
+        $subject->name = $request->name;
+        $subject->program_id = $request->program_id;
+        $subject->grade = $request->grade;
+        $subject->espb = $request->espb;
+
+        if ($subject->save()) {
+            Session::flash('updateSubject_success');
+            return redirect()->route('employee.showSubjects')->with(['subjectName' => $subject->name]);
+        } else {
+            Session::flash('updateSubject_failed');
+            return redirect()->route('employee.editSubject');
+        }
+    }
+
+    public function destroySubject($id) {
+        $subject = Subject::findOrFail($id);
+
+        if ($subject->delete()) {
+            Session::flash('deleteSubject_success');
+            return redirect()->route('employee.showSubjects');
+        } else {
+            Session::flash('deleteSubject_failed');
+            return redirect()->route('employee.showSubjects');
         }
     }
 

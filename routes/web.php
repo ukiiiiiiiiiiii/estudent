@@ -57,6 +57,9 @@ Route::prefix('employee')->group(function() {
     Route::get('/fetch_subjects_data', 'EmployeeController@fetch_subjects_data');
     Route::get('/createSubject', 'EmployeeController@createSubject')->name('employee.createSubject');
     Route::post('/storeSubject', 'EmployeeController@storeSubject')->name('employee.storeSubject');
+    Route::get('/editSubject/{id}', 'EmployeeController@editSubject')->name('employee.editSubject');
+    Route::post('/updateSubject/{id}', 'EmployeeController@updateSubject')->name('employee.updateSubject');
+    Route::get('/destroySubject/{id}', 'EmployeeController@destroySubject')->name('employee.destroySubject');
     Route::get('/createProgram', 'EmployeeController@createProgram')->name('employee.createProgram');
     Route::get('/showPrograms', 'EmployeeController@showPrograms')->name('employee.showPrograms');
     Route::post('/storeProgram', 'EmployeeController@storeProgram')->name('employee.storeProgram');

@@ -57,7 +57,7 @@
                     <th class="col-md-4 text-center border-bottom-0">Студијски програм</th>
                     <th class="col-md-2 text-center border-bottom-0">Година студија</th>
                     <th class="col-md-2 text-center border-bottom-0">ЕСПБ</th>
-                    <th class="col-md-1 text-center border-bottom-0">Акција</th>
+                    <th class="col-md-1 text-center border-bottom-0"></th>
                 </tr>
             </thead>
         </table>
@@ -89,7 +89,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    Успешно сте изменили предмет <br><span class="font-weight-bold">{{-- Session::get('programName') --}}</span>.
+                    Успешно сте изменили предмет <br><span class="font-weight-bold">{{ Session::get('subjectName') }}</span>.
                 </div>
             </div>
         </div>

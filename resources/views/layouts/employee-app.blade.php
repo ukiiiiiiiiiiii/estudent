@@ -177,6 +177,38 @@
     </script>
 @endif
 
+@if(Session::has('updateSubject_success'))
+    <script>
+        $(function() {
+            $('#updateSubject_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('updateSubject_failed'))
+    <script>
+        $(function() {
+            $('#updateSubject_failed').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('deleteSubject_success'))
+    <script>
+        $(function() {
+            $('#deleteSubject_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('deleteSubject_failed'))
+    <script>
+        $(function() {
+            $('#deleteSubject_failed').modal('show');
+        });
+    </script>
+@endif
+
 <script>
     $(".datepicker").datepicker({
         format: "dd.mm.yyyy.",
