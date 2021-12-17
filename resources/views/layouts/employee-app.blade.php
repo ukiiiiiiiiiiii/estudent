@@ -256,6 +256,38 @@
         });
     </script>
 @endif
+
+@if(Session::has('createSchedule_success'))
+    <script>
+        $(function() {
+            $('#createSchedule_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('createSchedule_failed'))
+    <script>
+        $(function() {
+            $('#createSchedule_failed').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('deleteSchedule_success'))
+    <script>
+        $(function() {
+            $('#deleteSchedule_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('deleteSchedule_failed'))
+    <script>
+        $(function() {
+            $('#deleteSchedule_failed').modal('show');
+        });
+    </script>
+@endif
 <script>
     $(".datepicker").datepicker({
         format: "dd.mm.yyyy.",

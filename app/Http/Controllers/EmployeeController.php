@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Information;
 use App\Program;
+use App\Schedule;
 use App\Subject;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class EmployeeController extends Controller
 {
@@ -595,6 +597,191 @@ class EmployeeController extends Controller
         if ($user->delete()) {
             Session::flash('deleteUser_success');
             return redirect()->route('employee.showUsers');
+        } else {
+            Session::flash('deleteUser_failed');
+            return redirect()->route('employee.showUsers');
+        }
+    }
+
+    /**
+     * Raspored nastave
+     **/
+    public function showSchedule()
+    {
+        $programs = DB::table('programs')->orderBy('name', 'asc')->paginate(10);
+        return view('employee.schedule', compact('programs'));
+    }
+
+    public function createSchedule($id)
+    {
+        $program = Program::findOrFail($id);
+        $schedules = Schedule::all();
+        $schedules2 = Schedule::all();
+        $schedules3 = Schedule::all();
+        $schedules4 = Schedule::all();
+
+        if (count($schedules) > 0) {
+            $subjects = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 1);
+            $subjects2 = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 2);
+            $subjects3 = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 3);
+            $subjects4 = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 4);
+
+            $schedules = Subject::join('schedules', 'subjects.id', '=', 'schedules.subject_id')
+                ->select('subjects.*', 'schedules.*')
+                ->where('subjects.program_id', '=', $id)
+                ->where('subjects.grade', '=', 1)
+                ->orderBy('schedules.start', 'asc')
+                ->orderBy('schedules.end', 'asc')
+                ->get();
+
+            $schedules2 = Subject::join('schedules', 'subjects.id', '=', 'schedules.subject_id')
+                ->select('subjects.*', 'schedules.*')
+                ->where('subjects.program_id', '=', $id)
+                ->where('subjects.grade', '=', 2)
+                ->orderBy('schedules.start', 'asc')
+                ->orderBy('schedules.end', 'asc')
+                ->get();
+
+            $schedules3 = Subject::join('schedules', 'subjects.id', '=', 'schedules.subject_id')
+                ->select('subjects.*', 'schedules.*')
+                ->where('subjects.program_id', '=', $id)
+                ->where('subjects.grade', '=', 3)
+                ->orderBy('schedules.start', 'asc')
+                ->orderBy('schedules.end', 'asc')
+                ->get();
+
+            $schedules4 = Subject::join('schedules', 'subjects.id', '=', 'schedules.subject_id')
+                ->select('subjects.*', 'schedules.*')
+                ->where('subjects.program_id', '=', $id)
+                ->where('subjects.grade', '=', 4)
+                ->orderBy('schedules.start', 'asc')
+                ->orderBy('schedules.end', 'asc')
+                ->get();
+
+            return view('employee.createSchedule')->withSubjects($subjects)->withSubjects2($subjects2)->withSubjects3($subjects3)->withSubjects4($subjects4)
+                ->withSchedules($schedules)->withSchedules2($schedules2)->withSchedules3($schedules3)->withSchedules4($schedules4)->withProgram($program);
+        } else {
+            $subjects = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 1);
+            $subjects2 = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 2);
+            $subjects3 = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 3);
+            $subjects4 = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 4);
+
+            return view('employee.createSchedule')->withSubjects($subjects)->withSubjects2($subjects2)->withSubjects3($subjects3)->withSubjects4($subjects4)
+                ->withSchedules($schedules)->withSchedules2($schedules2)->withSchedules3($schedules3)->withSchedules4($schedules4)->withProgram($program);
+        }
+    }
+
+    public function storeSchedule(Request $request) {
+        $this->validate($request, [
+            'subject_id' => 'required|unique:schedules',
+            'day' => 'required',
+            'start' => 'required|numeric',
+            'end' => 'required|numeric',
+        ]);
+
+        $schedule = new Schedule();
+
+        $schedule->subject_id = $request->subject_id;
+        $schedule->day = $request->day;
+        $schedule->start = $request->start;
+        $schedule->end = $request->end;
+
+        $subject = Subject::all()->where('id', $schedule->subject_id)->first();
+
+        if ($schedule->save()) {
+            Session::flash('createSchedule_success');
+            return redirect()->route('employee.createSchedule', $request->program_id)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
+        } else {
+            Session::flash('createSchedule_failed');
+            return redirect()->route('employee.createSchedule');
+        }
+    }
+
+    public function storeSchedule2(Request $request) {
+        $this->validate($request, [
+            'subject_id2' => 'required|unique:schedules,subject_id',
+            'day2' => 'required',
+            'start2' => 'required|numeric',
+            'end2' => 'required|numeric',
+        ]);
+
+        $schedule = new Schedule();
+
+        $schedule->subject_id = $request->subject_id2;
+        $schedule->day = $request->day2;
+        $schedule->start = $request->start2;
+        $schedule->end = $request->end2;
+
+        $subject = Subject::all()->where('id', $schedule->subject_id)->first();
+
+        if ($schedule->save()) {
+            Session::flash('createSchedule_success');
+            return redirect()->route('employee.createSchedule', $request->program_id)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
+        } else {
+            Session::flash('createSchedule_failed');
+            return redirect()->route('employee.createSchedule');
+        }
+    }
+
+    public function storeSchedule3(Request $request) {
+        $this->validate($request, [
+            'subject_id3' => 'required|unique:schedules,subject_id',
+            'day3' => 'required',
+            'start3' => 'required|numeric',
+            'end3' => 'required|numeric',
+        ]);
+
+        $schedule = new Schedule();
+
+        $schedule->subject_id = $request->subject_id3;
+        $schedule->day = $request->day3;
+        $schedule->start = $request->start3;
+        $schedule->end = $request->end3;
+
+        $subject = Subject::all()->where('id', $schedule->subject_id)->first();
+
+        if ($schedule->save()) {
+            Session::flash('createSchedule_success');
+            return redirect()->route('employee.createSchedule', $request->program_id)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
+        } else {
+            Session::flash('createSchedule_failed');
+            return redirect()->route('employee.createSchedule');
+        }
+    }
+
+    public function storeSchedule4(Request $request) {
+        $this->validate($request, [
+            'subject_id4' => 'required|unique:schedules,subject_id',
+            'day4' => 'required',
+            'start4' => 'required|numeric',
+            'end4' => 'required|numeric',
+        ]);
+
+        $schedule = new Schedule();
+
+        $schedule->subject_id = $request->subject_id4;
+        $schedule->day = $request->day4;
+        $schedule->start = $request->start4;
+        $schedule->end = $request->end4;
+
+        $subject = Subject::all()->where('id', $schedule->subject_id)->first();
+
+        if ($schedule->save()) {
+            Session::flash('createSchedule_success');
+            return redirect()->route('employee.createSchedule', $request->program_id)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
+        } else {
+            Session::flash('createSchedule_failed');
+            return redirect()->route('employee.createSchedule');
+        }
+    }
+
+    public function destroySchedule($scheduleID, $programID) {
+        $schedule = Schedule::findOrFail($scheduleID);
+
+        $subject = Subject::all()->where('id', $schedule->subject_id)->first();
+        if ($schedule->delete()) {
+            Session::flash('deleteSchedule_success');
+            return redirect()->route('employee.createSchedule', $programID)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
         } else {
             Session::flash('deleteUser_failed');
             return redirect()->route('employee.showUsers');

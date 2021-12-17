@@ -35,7 +35,7 @@
             </div>
         </li>
         <li id="tab" class="nav-item mr-1">
-            <a class="nav-link" href="#">Распоред наставе</a>
+            <a class="nav-link" href="{{ route('employee.showSchedule') }}">Распоред наставе</a>
         </li>
         <li id="tab" class="nav-item">
             <a class="nav-link" href="#">Испитни рокови</a>

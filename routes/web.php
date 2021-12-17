@@ -79,5 +79,13 @@ Route::prefix('employee')->group(function() {
     Route::post('/updateUser/{id}', 'EmployeeController@updateUser')->name('employee.updateUser');
     Route::get('/destroyUser/{id}', 'EmployeeController@destroyUser')->name('employee.destroyUser');
 
+    Route::get('/showSchedule', 'EmployeeController@showSchedule')->name('employee.showSchedule');
+    Route::get('/createSchedule/{id}', 'EmployeeController@createSchedule')->name('employee.createSchedule');
+    Route::post('/storeSchedule', 'EmployeeController@storeSchedule')->name('employee.storeSchedule');
+    Route::post('/storeSchedule2', 'EmployeeController@storeSchedule2')->name('employee.storeSchedule2');
+    Route::post('/storeSchedule3', 'EmployeeController@storeSchedule3')->name('employee.storeSchedule3');
+    Route::post('/storeSchedule4', 'EmployeeController@storeSchedule4')->name('employee.storeSchedule4');
+    Route::get('/destroySchedule/{scheduleID}/{programID}', 'EmployeeController@destroySchedule')->name('employee.destroySchedule');
+
     Route::get('/', 'EmployeeController@index')->name('employee.dashboard');
 });

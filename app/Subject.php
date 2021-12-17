@@ -15,4 +15,8 @@ class Subject extends Model
     public function program() {
         return $this->belongsTo(Program::class);
     }
+
+    public function schedule() {
+        return $this->hasOne(Schedule::class);
+    }
 }
