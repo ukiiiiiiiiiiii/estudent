@@ -394,10 +394,10 @@
                                     <div class="form-group row pt-1">
                                         <label for="subject_id2" class="col-md-4 col-form-label text-md-right">Предмет</label>
                                         <select class="text-center col-md-4 form-control @error('subject_id2') is-invalid @enderror" name="subject_id2" id="subject_id2">
-                                            <option {{ old('subject_id') == '' ? "selected" : "" }} value="">Изабери предмет</option>
+                                            <option {{ old('subject_id2') == '' ? "selected" : "" }} value="">Изабери предмет</option>
                                             @foreach($subjects2 as $subject2)
                                                 @if($subject2->grade == 2)
-                                                    <option {{ old('subject_id') == $subject2->id ? "selected" : "" }} value="{{ $subject2->id }}">{{ $subject2->name }}</option>
+                                                    <option {{ old('subject_id2') == $subject2->id ? "selected" : "" }} value="{{ $subject2->id }}">{{ $subject2->name }}</option>
                                                 @endif
                                             @endforeach
                                         </select>
@@ -559,10 +559,10 @@
                                     <div class="form-group row pt-1">
                                         <label for="subject_id3" class="col-md-4 col-form-label text-md-right">Предмет</label>
                                         <select class="text-center col-md-4 form-control @error('subject_id3') is-invalid @enderror" name="subject_id3" id="subject_id3">
-                                            <option {{ old('subject_id') == '' ? "selected" : "" }} value="">Изабери предмет</option>
+                                            <option {{ old('subject_id3') == '' ? "selected" : "" }} value="">Изабери предмет</option>
                                             @foreach($subjects3 as $subject3)
                                                 @if($subject3->grade == 3)
-                                                    <option {{ old('subject_id') == $subject3->id ? "selected" : "" }} value="{{ $subject3->id }}">{{ $subject3->name }}</option>
+                                                    <option {{ old('subject_id3') == $subject3->id ? "selected" : "" }} value="{{ $subject3->id }}">{{ $subject3->name }}</option>
                                                 @endif
                                             @endforeach
                                         </select>
@@ -724,10 +724,10 @@
                                     <div class="form-group row pt-1">
                                         <label for="subject_id4" class="col-md-4 col-form-label text-md-right">Предмет</label>
                                         <select class="text-center col-md-4 form-control @error('subject_id4') is-invalid @enderror" name="subject_id4" id="subject_id4">
-                                            <option {{ old('subject_id') == '' ? "selected" : "" }} value="">Изабери предмет</option>
+                                            <option {{ old('subject_id4') == '' ? "selected" : "" }} value="">Изабери предмет</option>
                                             @foreach($subjects4 as $subject4)
                                                 @if($subject4->grade == 4)
-                                                    <option {{ old('subject_id') == $subject4->id ? "selected" : "" }} value="{{ $subject4->id }}">{{ $subject4->name }}</option>
+                                                    <option {{ old('subject_id4') == $subject4->id ? "selected" : "" }} value="{{ $subject4->id }}">{{ $subject4->name }}</option>
                                                 @endif
                                             @endforeach
                                         </select>

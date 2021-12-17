@@ -288,6 +288,38 @@
         });
     </script>
 @endif
+
+@if(Session::has('createExam_success'))
+    <script>
+        $(function() {
+            $('#createExam_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('createExam_failed'))
+    <script>
+        $(function() {
+            $('#createExam_failed').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('deleteExam_success'))
+    <script>
+        $(function() {
+            $('#deleteExam_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('deleteExam_failed'))
+    <script>
+        $(function() {
+            $('#deleteExam_failed').modal('show');
+        });
+    </script>
+@endif
 <script>
     $(".datepicker").datepicker({
         format: "dd.mm.yyyy.",

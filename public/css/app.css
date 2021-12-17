@@ -11100,3 +11100,9 @@ a.dropdown-item:active {
     font-weight: bold;
     pointer-events: none;
 }
+
+input[type='time']::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+}

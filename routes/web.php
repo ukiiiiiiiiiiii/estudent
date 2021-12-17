@@ -87,5 +87,13 @@ Route::prefix('employee')->group(function() {
     Route::post('/storeSchedule4', 'EmployeeController@storeSchedule4')->name('employee.storeSchedule4');
     Route::get('/destroySchedule/{scheduleID}/{programID}', 'EmployeeController@destroySchedule')->name('employee.destroySchedule');
 
+    Route::get('/showExams', 'EmployeeController@showExams')->name('employee.showExams');
+    Route::get('/createExam/{id}', 'EmployeeController@createExam')->name('employee.createExam');
+    Route::post('/storeExam', 'EmployeeController@storeExam')->name('employee.storeExam');
+    Route::post('/storeExam2', 'EmployeeController@storeExam2')->name('employee.storeExam2');
+    Route::post('/storeExam3', 'EmployeeController@storeExam3')->name('employee.storeExam3');
+    Route::post('/storeExam4', 'EmployeeController@storeExam4')->name('employee.storeExam4');
+    Route::get('/destroyExam/{examID}/{programID}', 'EmployeeController@destroyExam')->name('employee.destroyExam');
+
     Route::get('/', 'EmployeeController@index')->name('employee.dashboard');
 });

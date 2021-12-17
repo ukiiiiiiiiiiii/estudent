@@ -19,4 +19,8 @@ class Subject extends Model
     public function schedule() {
         return $this->hasOne(Schedule::class);
     }
+
+    public function exam() {
+        return $this->hasOne(Exam::class);
+    }
 }

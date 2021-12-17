@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exam;
 use App\Information;
 use App\Program;
 use App\Schedule;
@@ -783,8 +784,189 @@ class EmployeeController extends Controller
             Session::flash('deleteSchedule_success');
             return redirect()->route('employee.createSchedule', $programID)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
         } else {
-            Session::flash('deleteUser_failed');
-            return redirect()->route('employee.showUsers');
+            Session::flash('deleteSchedule_failed');
+            return redirect()->route('employee.createSchedule');
+        }
+    }
+
+    /**
+     * Raspored ispita
+     **/
+    public function showExams()
+    {
+        $programs = DB::table('programs')->orderBy('name', 'asc')->paginate(10);
+        return view('employee.exams', compact('programs'));
+    }
+
+    public function createExam($id)
+    {
+        $program = Program::findOrFail($id);
+        $exams = Exam::all();
+        $exams2 = Exam::all();
+        $exams3 = Exam::all();
+        $exams4 = Exam::all();
+
+        if (count($exams) > 0) {
+            $subjects = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 1);
+            $subjects2 = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 2);
+            $subjects3 = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 3);
+            $subjects4 = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 4);
+
+            $exams = Subject::join('exams', 'subjects.id', '=', 'exams.subject_id')
+                ->select('subjects.*', 'exams.*')
+                ->where('subjects.program_id', '=', $id)
+                ->where('subjects.grade', '=', 1)
+                ->orderBy('exams.date', 'asc')
+                ->orderBy('exams.time', 'asc')
+                ->get();
+
+            $exams2 = Subject::join('exams', 'subjects.id', '=', 'exams.subject_id')
+                ->select('subjects.*', 'exams.*')
+                ->where('subjects.program_id', '=', $id)
+                ->where('subjects.grade', '=', 2)
+                ->orderBy('exams.date', 'asc')
+                ->orderBy('exams.time', 'asc')
+                ->get();
+
+            $exams3 = Subject::join('exams', 'subjects.id', '=', 'exams.subject_id')
+                ->select('subjects.*', 'exams.*')
+                ->where('subjects.program_id', '=', $id)
+                ->where('subjects.grade', '=', 3)
+                ->orderBy('exams.date', 'asc')
+                ->orderBy('exams.time', 'asc')
+                ->get();
+
+            $exams4 = Subject::join('exams', 'subjects.id', '=', 'exams.subject_id')
+                ->select('subjects.*', 'exams.*')
+                ->where('subjects.program_id', '=', $id)
+                ->where('subjects.grade', '=', 4)
+                ->orderBy('exams.date', 'asc')
+                ->orderBy('exams.time', 'asc')
+                ->get();
+
+            return view('employee.createExam')->withSubjects($subjects)->withSubjects2($subjects2)->withSubjects3($subjects3)->withSubjects4($subjects4)
+                ->withExams($exams)->withExams2($exams2)->withExams3($exams3)->withExams4($exams4)->withProgram($program);
+        } else {
+            $subjects = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 1);
+            $subjects2 = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 2);
+            $subjects3 = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 3);
+            $subjects4 = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 4);
+
+            return view('employee.createExam')->withSubjects($subjects)->withSubjects2($subjects2)->withSubjects3($subjects3)->withSubjects4($subjects4)
+                ->withExams($exams)->withExams2($exams2)->withExams3($exams3)->withExams4($exams4)->withProgram($program);
+        }
+    }
+
+    public function storeExam(Request $request) {
+        $this->validate($request, [
+            'subject_id_exam' => 'required|unique:exams,subject_id',
+            'date' => 'required',
+            'time' => 'required',
+        ]);
+
+        $exam = new Exam();
+
+        $exam->subject_id = $request->subject_id_exam;
+        $strDate = date('Y-m-d', strtotime($request->date));
+        $exam->date = $strDate;
+        $exam->time = $request->time;
+
+        $subject = Subject::all()->where('id', $exam->subject_id)->first();
+
+        if ($exam->save()) {
+            Session::flash('createExam_success');
+            return redirect()->route('employee.createExam', $request->program_id)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
+        } else {
+            Session::flash('createExam_failed');
+            return redirect()->route('employee.createExam');
+        }
+    }
+
+    public function storeExam2(Request $request) {
+        $this->validate($request, [
+            'subject_id_exam2' => 'required|unique:exams,subject_id',
+            'date2' => 'required',
+            'time2' => 'required',
+        ]);
+
+        $exam = new Exam();
+
+        $exam->subject_id = $request->subject_id_exam2;
+        $strDate = date('Y-m-d', strtotime($request->date2));
+        $exam->date = $strDate;
+        $exam->time = $request->time2;
+
+        $subject = Subject::all()->where('id', $exam->subject_id)->first();
+
+        if ($exam->save()) {
+            Session::flash('createExam_success');
+            return redirect()->route('employee.createExam', $request->program_id)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
+        } else {
+            Session::flash('createExam_failed');
+            return redirect()->route('employee.createExam');
+        }
+    }
+
+    public function storeExam3(Request $request) {
+        $this->validate($request, [
+            'subject_id_exam3' => 'required|unique:exams,subject_id',
+            'date3' => 'required',
+            'time3' => 'required',
+        ]);
+
+        $exam = new Exam();
+
+        $exam->subject_id = $request->subject_id_exam3;
+        $strDate = date('Y-m-d', strtotime($request->date3));
+        $exam->date = $strDate;
+        $exam->time = $request->time3;
+
+        $subject = Subject::all()->where('id', $exam->subject_id)->first();
+
+        if ($exam->save()) {
+            Session::flash('createExam_success');
+            return redirect()->route('employee.createExam', $request->program_id)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
+        } else {
+            Session::flash('createExam_failed');
+            return redirect()->route('employee.createExam');
+        }
+    }
+
+    public function storeExam4(Request $request) {
+        $this->validate($request, [
+            'subject_id_exam4' => 'required|unique:exams,subject_id',
+            'date4' => 'required',
+            'time4' => 'required',
+        ]);
+
+        $exam = new Exam();
+
+        $exam->subject_id = $request->subject_id_exam4;
+        $strDate = date('Y-m-d', strtotime($request->date4));
+        $exam->date = $strDate;
+        $exam->time = $request->time4;
+
+        $subject = Subject::all()->where('id', $exam->subject_id)->first();
+
+        if ($exam->save()) {
+            Session::flash('createExam_success');
+            return redirect()->route('employee.createExam', $request->program_id)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
+        } else {
+            Session::flash('createExam_failed');
+            return redirect()->route('employee.createExam');
+        }
+    }
+
+    public function destroyExam($examID, $programID) {
+        $exam = Exam::findOrFail($examID);
+
+        $subject = Subject::all()->where('id', $exam->subject_id)->first();
+        if ($exam->delete()) {
+            Session::flash('deleteExam_success');
+            return redirect()->route('employee.createExam', $programID)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
+        } else {
+            Session::flash('deleteExam_failed');
+            return redirect()->route('employee.createExam');
         }
     }
 }
