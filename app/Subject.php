@@ -9,7 +9,7 @@ class Subject extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'program_id', 'name', 'grade', 'espb',
+        'program_id', 'subject_id', 'name', 'grade', 'espb',
     ];
 
     public function program() {
@@ -20,7 +20,11 @@ class Subject extends Model
         return $this->hasOne(Schedule::class);
     }
 
-    public function exam() {
-        return $this->hasOne(Exam::class);
+    public function exams() {
+        return $this->hasMany(Exam::class);
+    }
+
+    public function results() {
+        return $this->hasMany(Result::class);
     }
 }

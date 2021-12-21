@@ -13,7 +13,7 @@
         </tr>
     @endforelse
     <tr>
-        <td colspan="3">{{ $programs->links() }}</td>
+        <td colspan="2">{{ $programs->links() }}</td>
     </tr>
 
 

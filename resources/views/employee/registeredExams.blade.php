@@ -57,55 +57,29 @@
             <thead class="thead-blue">
             <tr>
                 <th class="col-md-10">Студијски програм</th>
-                <th class="col-md-2 text-center">Распоред</th>
+                <th class="col-md-2 text-center">Пријаве</th>
             </tr>
             </thead>
             <tbody>
-            @include('employee.exams_data')
+                @forelse($programs as $program)
+                    <tr>
+                        <td class="pt-3">{{ $program->name }}</td>
+                        <td class="text-center">
+                            <a href="{{ route('employee.createExam', ['id' => $program->id]) }}" class="btn btn-sm btn-info">Прикажи</a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            Нема резултата претраге
+                        </td>
+                    </tr>
+                @endforelse
+                <tr>
+                    <td colspan="2">{{ $programs->links() }}</td>
+                </tr>
             </tbody>
         </table>
-    </div>
-
-    <!-- Modal Update Program Success Message -->
-    <div class="modal" id="updateProgram_success" tabindex="-1" aria-labelledby="updateProgram_success" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb;">
-                <div class="modal-body text-center">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    Успешно сте изменили студијски програм <br><span class="font-weight-bold">{{ Session::get('programName') }}</span>.
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Delete Program Success Message -->
-    <div class="modal" id="deleteProgram_success" tabindex="-1" aria-labelledby="deleteProgram_success" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb;">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    Успешно сте избрисали податке.
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Delete Program Failed Message -->
-    <div class="modal" id="deleteProgram_failed" tabindex="-1" aria-labelledby="deleteProgram_failed" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb;">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    Неуспешно брисање података. Покушајте поново.
-                </div>
-            </div>
-        </div>
     </div>
 @endsection
 

@@ -4,73 +4,102 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>КПУ | Студентски веб сервис</title>
+    <link rel="icon" href="{{ asset('css/img/icon.ico') }}">
+    <title>КПУ | Студентски веб сервис | Студентска служба</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('fontawesome/css/all.css') }}" rel="stylesheet">
+    <link href="{{ asset('bootstrap-datepicker/css/bootstrap-datepicker.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+<body class="wrapper">
+<header>
+    <div class="flag-pattern"></div>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand d-flex flex-row" href="{{ route('employee.dashboard') }}">
+                <img src="{{ asset('css/img/logo50.png') }}" class="d-inline-block align-top" alt="">
+                <div style="padding-top: 10px" class="pl-2">Криминалистичко-полицијски универзитет</div>
+            </a>
 
-                    </ul>
+            <!-- Left Side Of Navbar -->
+            <ul class="navbar-nav mr-auto">
+            </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->username }} <span class="caret"></span>
-                                </a>
+            <!-- Right Side Of Navbar -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <div id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }} <span class="caret"></span>
+                    </div>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                            Одјави се
+                        </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<main>
+    <div>
+        @yield('content')
     </div>
+</main>
+<footer>
+    <div class="text-center mb-1 text-muted">Copyright 2021 © Урош Динић</div>
+</footer>
+
+@if(Session::has('storeResult_success'))
+    <script>
+        $(function() {
+            $('#storeResult_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('storeResult_failed'))
+    <script>
+        $(function() {
+            $('#storeResult_failed').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('deleteResult_success'))
+    <script>
+        $(function() {
+            $('#deleteResult_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('deleteResult_failed'))
+    <script>
+        $(function() {
+            $('#deleteResult_failed').modal('show');
+        });
+    </script>
+@endif
+
+<script>
+    $(".datepicker").datepicker({
+        format: "dd.mm.yyyy.",
+        weekStart: 1,
+        autoclose: true,
+    })
+</script>
 </body>
 </html>

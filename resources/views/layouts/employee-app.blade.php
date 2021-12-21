@@ -13,9 +13,6 @@
     <link href="{{ asset('fontawesome/css/all.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstrap-datepicker/css/bootstrap-datepicker.css') }}" rel="stylesheet">
     <script src="{{ asset('js/app.js') }}"></script>
-    {{--
-    <script src="{{ asset('js/searchPrograms.js') }}"></script>
-    --}}
     <script src="{{ asset('bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 </head>
 <body class="wrapper">
@@ -305,18 +302,18 @@
     </script>
 @endif
 
-@if(Session::has('deleteExam_success'))
+@if(Session::has('updateExam_success'))
     <script>
         $(function() {
-            $('#deleteExam_success').modal('show');
+            $('#updateExam_success').modal('show');
         });
     </script>
 @endif
 
-@if(Session::has('deleteExam_failed'))
+@if(Session::has('updateExam_failed'))
     <script>
         $(function() {
-            $('#deleteExam_failed').modal('show');
+            $('#updateExam_failed').modal('show');
         });
     </script>
 @endif

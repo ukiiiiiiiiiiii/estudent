@@ -38,7 +38,7 @@
             <a class="nav-link" href="{{ route('employee.showSchedule') }}">Распоред наставе</a>
         </li>
         <li id="dropdown-tab" class="nav-item dropdown active mr-1">
-            <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Испитни рокови</a>
+            <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Испити</a>
             <div class="dropdown-menu">
                 <a class="dropdown-item active disabled" href="{{-- route('employee.showUsers') --}}">Распоред испита</a>
                 <a class="dropdown-item" href="{{-- route('employee.createUser') --}}">Резултати испита</a>
@@ -94,9 +94,9 @@
                                 <td class="text-center">{{ date('d.m.Y.', strtotime($exam->date)) }}</td>
                                 <td class="text-center">{{ $exam->time }}</td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#ModalDelete{{$exam->id}}">Затвори пријаву испита</button>
+                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#ModalUpdate{{$exam->id}}">Затвори пријаву испита</button>
 
-                                    <div class="modal fade" id="ModalDelete{{$exam->id}}" tabindex="-1" aria-labelledby="ModalDelete{{$exam->id}}" aria-hidden="true">
+                                    <div class="modal fade" id="ModalUpdate{{$exam->id}}" tabindex="-1" aria-labelledby="ModalUpdate{{$exam->id}}" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-body text-left" style="padding-bottom: 0.35rem">
@@ -104,7 +104,7 @@
                                                 </div>
                                                 <div class="modal-footer" style="padding-top: 0.40rem">
                                                     <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Одустани</button>
-                                                    <a href="{{ route('employee.destroyExam', ['examID' => $exam->id, 'programID' => $program->id]) }}" class="btn btn-sm btn-danger">Затвори пријаву испита</a>
+                                                    <a href="{{ route('employee.updateExam', ['examID' => $exam->id, 'programID' => $program->id]) }}" class="btn btn-sm btn-danger">Затвори пријаву испита</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -196,9 +196,9 @@
                                     <td class="text-center">{{ date('d.m.Y.', strtotime($exam2->date)) }}</td>
                                     <td class="text-center">{{ $exam2->time }}</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#ModalDelete{{$exam2->id}}">Затвори пријаву испита</button>
+                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#ModalUpdate{{$exam2->id}}">Затвори пријаву испита</button>
 
-                                        <div class="modal fade" id="ModalDelete{{$exam2->id}}" tabindex="-1" aria-labelledby="ModalDelete{{$exam2->id}}" aria-hidden="true">
+                                        <div class="modal fade" id="ModalUpdate{{$exam2->id}}" tabindex="-1" aria-labelledby="ModalUpdate{{$exam2->id}}" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-body text-left" style="padding-bottom: 0.35rem">
@@ -206,7 +206,7 @@
                                                     </div>
                                                     <div class="modal-footer" style="padding-top: 0.40rem">
                                                         <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Одустани</button>
-                                                        <a href="{{ route('employee.destroyExam', ['examID' => $exam2->id, 'programID' => $program->id]) }}" class="btn btn-sm btn-danger">Затвори пријаву испита</a>
+                                                        <a href="{{ route('employee.updateExam', ['examID' => $exam2->id, 'programID' => $program->id]) }}" class="btn btn-sm btn-danger">Затвори пријаву испита</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -298,9 +298,9 @@
                                     <td class="text-center">{{ date('d.m.Y.', strtotime($exam3->date)) }}</td>
                                     <td class="text-center">{{ $exam3->time }}</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#ModalDelete{{$exam3->id}}">Затвори пријаву испита</button>
+                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#ModalUpdate{{$exam3->id}}">Затвори пријаву испита</button>
 
-                                        <div class="modal fade" id="ModalDelete{{$exam3->id}}" tabindex="-1" aria-labelledby="ModalDelete{{$exam3->id}}" aria-hidden="true">
+                                        <div class="modal fade" id="ModalUpdate{{$exam3->id}}" tabindex="-1" aria-labelledby="ModalUpdate{{$exam3->id}}" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-body text-left" style="padding-bottom: 0.35rem">
@@ -308,7 +308,7 @@
                                                     </div>
                                                     <div class="modal-footer" style="padding-top: 0.40rem">
                                                         <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Одустани</button>
-                                                        <a href="{{ route('employee.destroyExam', ['examID' => $exam3->id, 'programID' => $program->id]) }}" class="btn btn-sm btn-danger">Затвори пријаву испита</a>
+                                                        <a href="{{ route('employee.updateExam', ['examID' => $exam3->id, 'programID' => $program->id]) }}" class="btn btn-sm btn-danger">Затвори пријаву испита</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -400,9 +400,9 @@
                                     <td class="text-center">{{ date('d.m.Y.', strtotime($exam4->date)) }}</td>
                                     <td class="text-center">{{ $exam4->time }}</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#ModalDelete{{$exam4->id}}">Затвори пријаву испита</button>
+                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#ModalUpdate{{$exam4->id}}">Затвори пријаву испита</button>
 
-                                        <div class="modal fade" id="ModalDelete{{$exam4->id}}" tabindex="-1" aria-labelledby="ModalDelete{{$exam4->id}}" aria-hidden="true">
+                                        <div class="modal fade" id="ModalUpdate{{$exam4->id}}" tabindex="-1" aria-labelledby="ModalUpdate{{$exam4->id}}" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-body text-left" style="padding-bottom: 0.35rem">
@@ -410,7 +410,7 @@
                                                     </div>
                                                     <div class="modal-footer" style="padding-top: 0.40rem">
                                                         <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Одустани</button>
-                                                        <a href="{{ route('employee.destroyExam', ['examID' => $exam4->id, 'programID' => $program->id]) }}" class="btn btn-sm btn-danger">Затвори пријаву испита</a>
+                                                        <a href="{{ route('employee.updateExam', ['examID' => $exam4->id, 'programID' => $program->id]) }}" class="btn btn-sm btn-danger">Затвори пријаву испита</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -517,8 +517,8 @@
         </div>
     </div>
 
-    <!-- Modal Delete Exam Success Message -->
-    <div class="modal" id="deleteExam_success" tabindex="-1" aria-labelledby="deleteExam_success" aria-hidden="true">
+    <!-- Modal Update Exam Success Message -->
+    <div class="modal" id="updateExam_success" tabindex="-1" aria-labelledby="updateExam_success" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb;">
                 <div class="modal-body text-center">
@@ -531,8 +531,8 @@
         </div>
     </div>
 
-    <!-- Modal Delete Schedule Failed Message -->
-    <div class="modal" id="deleteExam_failed" tabindex="-1" aria-labelledby="deleteExam_failed" aria-hidden="true">
+    <!-- Modal Update Exam Failed Message -->
+    <div class="modal" id="updateExam_failed" tabindex="-1" aria-labelledby="updateExam_failed" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb;">
                 <div class="modal-body">

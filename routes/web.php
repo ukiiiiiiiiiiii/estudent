@@ -15,20 +15,16 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('employee/test', function () {
-    $program = \App\Program::where('id', 2)->get();
-
-    $program->information()->create([
-        'grade' => '1',
-        'text' => 'pickin dim',
-    ]);
-
-    dd($program->information);
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/showExams', 'HomeController@showExams')->name('showExams');
+Route::get('/showExamInfo/{examID}/{subjectID}', 'HomeController@showExamInfo')->name('showExamInfo');
+Route::get('/showRegisteredExam', 'HomeController@showRegisteredExam')->name('showRegisteredExam');
+Route::get('/showSuccessfullyExam', 'HomeController@showSuccessfullyExam')->name('showSuccessfullyExam');
+Route::get('/showUnsuccessfullyExam', 'HomeController@showUnsuccessfullyExam')->name('showUnsuccessfullyExam');
+Route::get('/storeResult/{examID}', 'HomeController@storeResult')->name('storeResult');
+Route::get('/destroyResult/{resultID}/{subjectID}', 'HomeController@destroyResult')->name('destroyResult');
 
 Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
@@ -93,7 +89,9 @@ Route::prefix('employee')->group(function() {
     Route::post('/storeExam2', 'EmployeeController@storeExam2')->name('employee.storeExam2');
     Route::post('/storeExam3', 'EmployeeController@storeExam3')->name('employee.storeExam3');
     Route::post('/storeExam4', 'EmployeeController@storeExam4')->name('employee.storeExam4');
-    Route::get('/destroyExam/{examID}/{programID}', 'EmployeeController@destroyExam')->name('employee.destroyExam');
+    Route::get('/updateExam/{examID}/{programID}', 'EmployeeController@updateExam')->name('employee.updateExam');
+
+    Route::get('/showRegisteredExams', 'EmployeeController@showRegisteredExams')->name('employee.showRegisteredExams');
 
     Route::get('/', 'EmployeeController@index')->name('employee.dashboard');
 });

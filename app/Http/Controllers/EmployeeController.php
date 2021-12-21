@@ -801,10 +801,10 @@ class EmployeeController extends Controller
     public function createExam($id)
     {
         $program = Program::findOrFail($id);
-        $exams = Exam::all();
-        $exams2 = Exam::all();
-        $exams3 = Exam::all();
-        $exams4 = Exam::all();
+        $exams = Exam::all()->where('status', '=', 'open');
+        $exams2 = Exam::all()->where('status', '=', 'open');
+        $exams3 = Exam::all()->where('status', '=', 'open');
+        $exams4 = Exam::all()->where('status', '=', 'open');
 
         if (count($exams) > 0) {
             $subjects = Subject::all()->where('program_id', '=', $id)->where('grade', '=', 1);
@@ -816,6 +816,7 @@ class EmployeeController extends Controller
                 ->select('subjects.*', 'exams.*')
                 ->where('subjects.program_id', '=', $id)
                 ->where('subjects.grade', '=', 1)
+                ->where('exams.status', '=', 'open')
                 ->orderBy('exams.date', 'asc')
                 ->orderBy('exams.time', 'asc')
                 ->get();
@@ -824,6 +825,7 @@ class EmployeeController extends Controller
                 ->select('subjects.*', 'exams.*')
                 ->where('subjects.program_id', '=', $id)
                 ->where('subjects.grade', '=', 2)
+                ->where('exams.status', '=', 'open')
                 ->orderBy('exams.date', 'asc')
                 ->orderBy('exams.time', 'asc')
                 ->get();
@@ -832,6 +834,7 @@ class EmployeeController extends Controller
                 ->select('subjects.*', 'exams.*')
                 ->where('subjects.program_id', '=', $id)
                 ->where('subjects.grade', '=', 3)
+                ->where('exams.status', '=', 'open')
                 ->orderBy('exams.date', 'asc')
                 ->orderBy('exams.time', 'asc')
                 ->get();
@@ -840,6 +843,7 @@ class EmployeeController extends Controller
                 ->select('subjects.*', 'exams.*')
                 ->where('subjects.program_id', '=', $id)
                 ->where('subjects.grade', '=', 4)
+                ->where('exams.status', '=', 'open')
                 ->orderBy('exams.date', 'asc')
                 ->orderBy('exams.time', 'asc')
                 ->get();
@@ -859,7 +863,7 @@ class EmployeeController extends Controller
 
     public function storeExam(Request $request) {
         $this->validate($request, [
-            'subject_id_exam' => 'required|unique:exams,subject_id',
+            'subject_id_exam' => 'required',
             'date' => 'required',
             'time' => 'required',
         ]);
@@ -884,7 +888,7 @@ class EmployeeController extends Controller
 
     public function storeExam2(Request $request) {
         $this->validate($request, [
-            'subject_id_exam2' => 'required|unique:exams,subject_id',
+            'subject_id_exam2' => 'required',
             'date2' => 'required',
             'time2' => 'required',
         ]);
@@ -909,7 +913,7 @@ class EmployeeController extends Controller
 
     public function storeExam3(Request $request) {
         $this->validate($request, [
-            'subject_id_exam3' => 'required|unique:exams,subject_id',
+            'subject_id_exam3' => 'required',
             'date3' => 'required',
             'time3' => 'required',
         ]);
@@ -934,7 +938,7 @@ class EmployeeController extends Controller
 
     public function storeExam4(Request $request) {
         $this->validate($request, [
-            'subject_id_exam4' => 'required|unique:exams,subject_id',
+            'subject_id_exam4' => 'required',
             'date4' => 'required',
             'time4' => 'required',
         ]);
@@ -957,16 +961,28 @@ class EmployeeController extends Controller
         }
     }
 
-    public function destroyExam($examID, $programID) {
+    public function updateExam($examID, $programID) {
         $exam = Exam::findOrFail($examID);
 
+        $exam->status = "closed";
+
         $subject = Subject::all()->where('id', $exam->subject_id)->first();
-        if ($exam->delete()) {
+
+        if ($exam->save()) {
             Session::flash('deleteExam_success');
             return redirect()->route('employee.createExam', $programID)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
         } else {
             Session::flash('deleteExam_failed');
             return redirect()->route('employee.createExam');
         }
+    }
+
+    /*
+     * Prijavljeni ispiti
+     */
+    public function showRegisteredExams()
+    {
+        $programs = DB::table('programs')->orderBy('name', 'asc')->paginate(10);
+        return view('employee.registeredExams', compact('programs'));
     }
 }
