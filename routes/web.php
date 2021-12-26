@@ -11,13 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
-
 Auth::routes();
 
+Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/showSubjects', 'HomeController@showSubjects')->name('showSubjects');
+Route::get('/showSchedule', 'HomeController@showSchedule')->name('showSchedule');
+Route::get('/showScholarship', 'HomeController@showScholarship')->name('showScholarship');
+Route::post('/updateScholarship', 'HomeController@updateScholarship')->name('updateScholarship');
+Route::post('/payment', 'HomeController@payment')->name('payment');
 Route::get('/showExams', 'HomeController@showExams')->name('showExams');
 Route::get('/showExamInfo/{examID}/{subjectID}', 'HomeController@showExamInfo')->name('showExamInfo');
 Route::get('/showRegisteredExam', 'HomeController@showRegisteredExam')->name('showRegisteredExam');

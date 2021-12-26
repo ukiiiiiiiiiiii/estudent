@@ -130,6 +130,16 @@
                         </span>
                         @enderror
                     </div>
+
+                    @if($user->budget == 'С')
+                        <div class="form-group row">
+                            <label class="col-md-4 text-md-right">Дуг за школарину</label>
+
+                            <div class="col-md-2 pl-0">
+                                {{ 81000 - $user->paid }} динара
+                            </div>
+                        </div>
+                    @endif
                 </div>
 
                 <div class="row pt-2 pb-3">

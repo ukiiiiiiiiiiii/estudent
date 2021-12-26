@@ -578,6 +578,12 @@ class EmployeeController extends Controller
 
         $user = User::findOrFail($id);
 
+        if ($user->grade != $request->grade) {
+            $user->paid = 0;
+        } elseif ($user->budget != $request->budget) {
+            $user->paid = 0;
+        }
+
         $user->name = $request->name;
         $user->program_id = $request->program_id;
         $user->grade = $request->grade;

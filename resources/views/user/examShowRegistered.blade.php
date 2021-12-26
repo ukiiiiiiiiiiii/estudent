@@ -2,13 +2,14 @@
 
 @section('content')
     <ul class="nav nav-tabs justify-content-center">
-        <li id="dropdown-tab" class="nav-item dropdown mr-1">
-            <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Огласна табла</a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="{{-- route('employee.dashboard') --}}">Прикажи обавештења</a>
-                <a class="dropdown-item" href="{{-- route('employee.createInformation') --}}">Креирај обавештење</a>
-                <a class="dropdown-item disabled" href="#">Измени обавештење</a>
-            </div>
+        <li id="tab" class="nav-item mr-1">
+            <a class="nav-link" href="{{ route('home') }}">Огласна табла</a>
+        </li>
+        <li id="tab" class="nav-item mr-1">
+            <a class="nav-link" href="{{ route('showSubjects') }}">Моји предмети</a>
+        </li>
+        <li id="tab" class="nav-item mr-1">
+            <a class="nav-link" href="{{ route('showSchedule') }}">Распоред наставе</a>
         </li>
         <li id="dropdown-tab" class="nav-item dropdown active mr-1">
             <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Испити</a>
@@ -19,6 +20,11 @@
                 <a class="dropdown-item" href="{{ route('showUnsuccessfullyExam') }}">Неуспешна полагања</a>
             </div>
         </li>
+        @if(Auth::user()->budget == "С")
+            <li id="tab" class="nav-item mr-1">
+                <a class="nav-link" href="{{ route('showScholarship') }}">Школарина</a>
+            </li>
+        @endif
     </ul>
 
     <div class="container pt-4">

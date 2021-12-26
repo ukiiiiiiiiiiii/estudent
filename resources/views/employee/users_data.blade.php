@@ -35,7 +35,7 @@
     </tr>
 @empty
     <tr class="text-center">
-        <td colspan="5">Нема резултата претраге</td>
+        <td colspan="6">Нема резултата претраге</td>
     </tr>
 @endforelse
 </tbody>

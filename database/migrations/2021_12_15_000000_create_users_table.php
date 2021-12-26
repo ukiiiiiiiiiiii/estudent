@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->smallInteger('grade')->default(1);
             $table->smallInteger('espb')->default(0);
             $table->integer('money')->default(0);
+            $table->integer('paid')->default(0);
             $table->rememberToken();
 
             $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');

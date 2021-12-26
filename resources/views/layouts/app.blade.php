@@ -103,7 +103,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-md-4">ЕСПБ</div>
+                        <div class="col-md-4">Остварено ЕСПБ</div>
 
                         <div class="col-md-8 font-weight-bold">
                             {{ Auth::user()->espb }}
@@ -164,6 +164,30 @@
     <script>
         $(function() {
             $('#deleteResult_failed').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('updateScholarship_success'))
+    <script>
+        $(function() {
+            $('#updateScholarship_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('updateScholarship_failed'))
+    <script>
+        $(function() {
+            $('#updateScholarship_failed').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('updateScholarship_noMoney'))
+    <script>
+        $(function() {
+            $('#updateScholarship_noMoney').modal('show');
         });
     </script>
 @endif

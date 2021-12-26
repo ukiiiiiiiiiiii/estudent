@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exam;
+use App\Information;
 use App\Result;
+use App\Schedule;
 use App\Subject;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -30,7 +32,82 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $program_id = Auth::user()->program_id;
+        $grade = Auth::user()->grade;
+        $information = Information::orderBy('created_at', 'desc')->where('program_id', '=', $program_id)
+            ->where('grade', '=', $grade)->paginate(10);
+
+        return view('home', compact('information'));
+    }
+
+    public function showSubjects() {
+        $program_id = Auth::user()->program_id;
+
+        $subjects1 = Subject::all()->where('program_id', '=', $program_id)
+            ->where('grade', '=', '1');
+        $subjects2 = Subject::all()->where('program_id', '=', $program_id)
+            ->where('grade', '=', '2');
+        $subjects3 = Subject::all()->where('program_id', '=', $program_id)
+            ->where('grade', '=', '3');
+        $subjects4 = Subject::all()->where('program_id', '=', $program_id)
+            ->where('grade', '=', '4');
+
+        return view('user.subjects', compact('subjects1', 'subjects2', 'subjects3', 'subjects4'));
+    }
+
+    public function showSchedule() {
+        $program_id = Auth::user()->program_id;
+        $grade = Auth::user()->grade;
+
+        $schedules = Schedule::join('subjects', 'schedules.subject_id', '=', 'subjects.id')
+            ->select('schedules.*', 'subjects.*')
+            ->where('subjects.program_id', '=', $program_id)
+            ->where('subjects.grade', '=', $grade)
+            ->get();
+
+        return view('user.schedule', compact('schedules'));
+    }
+
+    public function showScholarship() {
+        return view('user.scholarship');
+    }
+
+    public function updateScholarship(Request $request) {
+        $this->validate($request, [
+            'payment' => 'required|numeric',
+        ]);
+
+        $user = User::all()->where('id', '=', Auth::user()->id)->first();
+
+        if ($user->money >= $request->payment) {
+            $user->money = $user->money - $request->payment;
+            $user->paid = $user->paid + $request->payment;
+
+            if ($user->save()) {
+                Session::flash('updateScholarship_success');
+                return redirect()->route('showScholarship');
+            } else {
+                Session::flash('updateScholarship_failed');
+                return redirect()->route('showScholarship');
+            }
+        } else {
+            Session::flash('updateScholarship_noMoney');
+            return redirect()->route('showScholarship');
+        }
+    }
+
+    public function payment(Request $request) {
+        $user = User::all()->where('id', '=', Auth::user()->id)->first();
+
+        $user->money = $request->money;
+
+        if ($user->save()) {
+            Session::flash('updateScholarship_success');
+            return redirect()->route('showScholarship');
+        } else {
+            Session::flash('updateScholarship_failed');
+            return redirect()->route('showScholarship');
+        }
     }
 
     public function showExams() {
@@ -45,17 +122,6 @@ class HomeController extends Controller
             ->orderBy('exams.date', 'asc')
             ->orderBy('exams.time', 'asc')
             ->get();
-
-        /*
-        $results = Exam::join('results', 'exams.subject_id', '=', 'results.subject_id')
-            ->join('subjects', 'exams.subject_id', '=', 'subjects.id')
-            ->select('results.*', 'exams.*')
-            ->where('subjects.program_id', '=', $program_id)
-            ->where('subjects.grade', '<=', $grade)
-            ->get();
-        */
-
-        //dd($results);
 
         return view('user.exams', compact('exams'));
     }
