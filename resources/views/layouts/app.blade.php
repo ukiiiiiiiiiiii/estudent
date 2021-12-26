@@ -26,11 +26,9 @@
                 <div style="padding-top: 10px" class="pl-2">Криминалистичко-полицијски универзитет</div>
             </a>
 
-            <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
             </ul>
 
-            <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <div id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -38,6 +36,7 @@
                     </div>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <button class="dropdown-item" data-toggle="modal" data-target="#info">Моји подаци</button>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
@@ -57,6 +56,73 @@
     <div>
         @yield('content')
     </div>
+    <div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="infoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width: 660px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="infoLabel">{{ Auth::user()->name }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <div class="col-md-4">Број индекса</div>
+
+                        <div class="col-md-8 font-weight-bold">
+                            {{ Auth::user()->username }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">Студијски програм</div>
+
+                        <div class="col-md-8 font-weight-bold">
+                            {{ Auth::user()->program->name }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">Начин финансирања</div>
+
+                        <div class="col-md-8 font-weight-bold">
+                            @if(Auth::user()->budget == "Б")
+                                буџет
+                            @else
+                                самофинансирање
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">Година студија</div>
+
+                        <div class="col-md-8 font-weight-bold">
+                            {{ Auth::user()->grade }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">ЕСПБ</div>
+
+                        <div class="col-md-8 font-weight-bold">
+                            {{ Auth::user()->espb }}
+                        </div>
+                    </div>
+
+                    @if(Auth::user()->budget == "С")
+                        <div class="form-group row">
+                            <div class="col-md-4">Новчана средства</div>
+
+                            <div class="col-md-8 font-weight-bold">
+                                {{ Auth::user()->money }} динара
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 <footer>
     <div class="text-center mb-1 text-muted">Copyright 2021 © Урош Динић</div>
@@ -74,6 +140,14 @@
     <script>
         $(function() {
             $('#storeResult_failed').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('storeResult_noMoney'))
+    <script>
+        $(function() {
+            $('#storeResult_noMoney').modal('show');
         });
     </script>
 @endif

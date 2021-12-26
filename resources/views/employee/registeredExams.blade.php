@@ -40,13 +40,10 @@
         <li id="dropdown-tab" class="nav-item dropdown active mr-1">
             <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Испити</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item active disabled" href="{{ route('employee.showExams') }}">Распоред испита</a>
-                <a class="dropdown-item" href="{{ route('employee.showRegisteredExams') }}">Пријављени испити</a>
-                <a class="dropdown-item" href="{{-- route('employee.createUser') --}}">Положени испити</a>
-                <a class="dropdown-item" href="{{-- route('employee.createUser') --}}">Неуспешна полагања</a>
-                {{--
-                <a class="dropdown-item disabled" href="#">Измени податке о студенту</a>
-                --}}
+                <a class="dropdown-item" href="{{ route('employee.showExams') }}">Распоред испита</a>
+                <a class="dropdown-item active disabled" href="{{ route('employee.showRegisteredExams') }}">Пријављени испити</a>
+                <a class="dropdown-item" href="{{ route('employee.showPassedExams') }}">Положени испити</a>
+                <a class="dropdown-item" href="{{ route('employee.showUnsuccessfullyExams') }}">Неуспешна полагања</a>
             </div>
         </li>
     </ul>
@@ -65,7 +62,7 @@
                     <tr>
                         <td class="pt-3">{{ $program->name }}</td>
                         <td class="text-center">
-                            <a href="{{ route('employee.createExam', ['id' => $program->id]) }}" class="btn btn-sm btn-info">Прикажи</a>
+                            <a href="{{ route('employee.showRegisteredExams2', ['programID' => $program->id]) }}" class="btn btn-sm btn-info">Прикажи</a>
                         </td>
                     </tr>
                 @empty

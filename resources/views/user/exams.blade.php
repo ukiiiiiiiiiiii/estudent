@@ -34,7 +34,7 @@
                     <tr>
                         <td>{{ $exam->name }}</td>
                         <td class="text-center">
-                            <a href="{{ route('showExamInfo', ['examID' => $exam->id, 'subjectID' => $exam->subject_id]) }}" class="btn btn-sm btn-info">Информације</a>
+                            <a href="{{ route('showExamInfo', ['examID' => $exam->id, 'subjectID' => $exam->subject_id]) }}" class="btn btn-sm btn-info">Прикажи</a>
                         </td>
                     </tr>
                 @empty
@@ -69,6 +69,20 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     Неуспешнa пријава испита. Покушајте поново.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Store Result No Money Message -->
+    <div class="modal" id="storeResult_noMoney" tabindex="-1" aria-labelledby="storeResult_noMoney" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb;">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    Немате довољно средстава на рачуну.
                 </div>
             </div>
         </div>

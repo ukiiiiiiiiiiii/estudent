@@ -37,8 +37,14 @@
         <li id="tab" class="nav-item mr-1">
             <a class="nav-link" href="{{ route('employee.showSchedule') }}">Распоред наставе</a>
         </li>
-        <li id="tab" class="nav-item">
-            <a class="nav-link" href="#">Испитни рокови</a>
+        <li id="dropdown-tab" class="nav-item dropdown mr-1">
+            <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Испити</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ route('employee.showExams') }}">Распоред испита</a>
+                <a class="dropdown-item" href="{{ route('employee.showRegisteredExams') }}">Пријављени испити</a>
+                <a class="dropdown-item" href="{{ route('employee.showPassedExams') }}">Положени испити</a>
+                <a class="dropdown-item" href="{{ route('employee.showUnsuccessfullyExams') }}">Неуспешна полагања</a>
+            </div>
         </li>
     </ul>
 <div class="container pt-5">

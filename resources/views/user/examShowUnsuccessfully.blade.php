@@ -51,7 +51,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4" class="text-center">Нема неуспешних полагања</td>
+                    <td colspan="5" class="text-center">Нема неуспешних полагања</td>
                 </tr>
             @endforelse
             </tbody>

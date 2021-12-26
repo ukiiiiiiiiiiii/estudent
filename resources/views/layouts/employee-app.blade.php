@@ -317,6 +317,22 @@
         });
     </script>
 @endif
+
+@if(Session::has('updateResult_success'))
+    <script>
+        $(function() {
+            $('#updateResult_success').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('updateResult_failed'))
+    <script>
+        $(function() {
+            $('#updateResult_failed').modal('show');
+        });
+    </script>
+@endif
 <script>
     $(".datepicker").datepicker({
         format: "dd.mm.yyyy.",

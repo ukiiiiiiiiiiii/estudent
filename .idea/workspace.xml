@@ -6,17 +6,33 @@
   <component name="ChangeListManager">
     <list default="true" id="1819c881-407f-4551-a89f-3e306f07ab8e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Exam.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Exam.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EmployeeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EmployeeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Subject.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Subject.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_12_17_200014_create_exams_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_12_17_200014_create_exams_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/validation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/employee/createExam.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/createExam.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/createInformation.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/createInformation.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/createProgram.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/createProgram.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/createSchedule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/createSchedule.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/createSubject.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/createSubject.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/createUser.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/createUser.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/editInformation.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/editInformation.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/editProgram.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/editProgram.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/editSubject.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/editSubject.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/editUser.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/editUser.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/employee/exams.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/exams.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/programs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/programs.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/registeredExams.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/registeredExams.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/schedule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/schedule.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/searchInformation.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/searchInformation.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/subjects.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/subjects.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/employee/users.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/employee/users.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/employee-app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/employee-app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/examInfo.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/examInfo.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/examShowSuccessfully.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/examShowSuccessfully.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/examShowUnsuccessfully.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/examShowUnsuccessfully.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/exams.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/exams.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -159,7 +175,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/employee" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/js" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -167,13 +183,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\eStudent\public\js" />
       <recent name="C:\xampp\htdocs\eStudent\resources\views\employee" />
       <recent name="C:\xampp\htdocs\eStudent\resources\views\user" />
       <recent name="C:\xampp\htdocs\eStudent\public\css" />
-      <recent name="C:\xampp\htdocs\eStudent\public\js" />
       <recent name="C:\xampp\htdocs\eStudent\resources\views\admin" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\eStudent\resources\views\employee" />
       <recent name="C:\xampp\htdocs\eStudent\public" />
       <recent name="C:\xampp\htdocs\eStudent\public\css\img" />
       <recent name="C:\xampp\htdocs\eStudent\public\css" />
@@ -197,7 +214,7 @@
       <workItem from="1636700399659" duration="2156000" />
       <workItem from="1636714580083" duration="280309000" />
       <workItem from="1638691709499" duration="99000" />
-      <workItem from="1638691819987" duration="152242000" />
+      <workItem from="1638691819987" duration="188812000" />
     </task>
     <servers />
   </component>

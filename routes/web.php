@@ -92,6 +92,15 @@ Route::prefix('employee')->group(function() {
     Route::get('/updateExam/{examID}/{programID}', 'EmployeeController@updateExam')->name('employee.updateExam');
 
     Route::get('/showRegisteredExams', 'EmployeeController@showRegisteredExams')->name('employee.showRegisteredExams');
+    Route::get('/showRegisteredExams2/{programID}', 'EmployeeController@showRegisteredExams2')->name('employee.showRegisteredExams2');
+    Route::get('/showRegisteredExams2/{program_id}/fetch_registeredExams2_data', 'EmployeeController@fetch_registeredExams2_data');
+    Route::post('/updateResult', 'EmployeeController@updateResult')->name('employee.updateResult');
+    Route::get('/showPassedExams', 'EmployeeController@showPassedExams')->name('employee.showPassedExams');
+    Route::post('/updateResult2', 'EmployeeController@updateResult2')->name('employee.updateResult2');
+    Route::get('/fetch_passedExams_data', 'EmployeeController@fetch_passedExams_data');
+    Route::get('/showUnsuccessfullyExams', 'EmployeeController@showUnsuccessfullyExams')->name('employee.showUnsuccessfullyExams');
+    Route::get('/fetch_unsuccessfullyExams_data', 'EmployeeController@fetch_unsuccessfullyExams_data');
+    Route::post('/updateResult3', 'EmployeeController@updateResult3')->name('employee.updateResult3');
 
     Route::get('/', 'EmployeeController@index')->name('employee.dashboard');
 });

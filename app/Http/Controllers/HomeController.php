@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Exam;
 use App\Result;
 use App\Subject;
+use App\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -59,16 +61,16 @@ class HomeController extends Controller
     }
 
     public function showExamInfo($examID, $subjectID){
-        $results = Result::all()->where('exam_id', '=', $examID);
+        $results = Result::all()->where('exam_id', '=', $examID)->where('user_id', '=', Auth::user()->id);
 
         $resultsSubject = Result::all()->where('subject_id', '=', $subjectID)
-        ->where('result', '>', 5);
+        ->where('result', '>', 5)->where('user_id', '=', Auth::user()->id);
 
         if (count($results) > 0) {
-            $result = Result::all()->where('exam_id', '=', $examID)->first();
+            $result = Result::all()->where('exam_id', '=', $examID)->where('user_id', '=', Auth::user()->id)->first();
             return view('user.examRegistered', compact('result'));
         } elseif (count($resultsSubject) > 0) {
-            $resultSubject = Result::all()->where('subject_id', '=', $subjectID)->first();
+            $resultSubject = Result::all()->where('subject_id', '=', $subjectID)->where('user_id', '=', Auth::user()->id)->first();
             return view('user.examPassed', compact('resultSubject'));
         }
         else {
@@ -105,18 +107,41 @@ class HomeController extends Controller
         $exam = Exam::findOrFail($examID);
         $subject = Subject::findOrFail($exam->subject_id);
 
-        $result = new Result();
+        if (Auth::user()->budget == "Б") {
+            $result = new Result();
 
-        $result->exam_id = $exam->id;
-        $result->subject_id = $exam->subject_id;
-        $result->user_id = Auth::user()->id;
+            $result->exam_id = $exam->id;
+            $result->subject_id = $exam->subject_id;
+            $result->user_id = Auth::user()->id;
 
-        if ($result->save()) {
-            Session::flash('storeResult_success');
-            return redirect()->route('showExams')->with(['subjectName' => $subject->name]);
+            if ($result->save()) {
+                Session::flash('storeResult_success');
+                return redirect()->route('showExams')->with(['subjectName' => $subject->name]);
+            } else {
+                Session::flash('storeResult_failed');
+                return redirect()->route('showExams');
+            }
         } else {
-            Session::flash('storeResult_failed');
-            return redirect()->route('showExams');
+            if (Auth::user()->money >= 600) {
+                $result = new Result();
+
+                $result->exam_id = $exam->id;
+                $result->subject_id = $exam->subject_id;
+                $result->user_id = Auth::user()->id;
+                $user = User::all()->where('id', '=', Auth::user()->id)->first();
+                $user->money = $user->money - 600;
+
+                if ($result->save() && $user->save()) {
+                    Session::flash('storeResult_success');
+                    return redirect()->route('showExams')->with(['subjectName' => $subject->name]);
+                } else {
+                    Session::flash('storeResult_failed');
+                    return redirect()->route('showExams');
+                }
+            } else {
+                Session::flash('storeResult_noMoney');
+                return redirect()->route('showExams');
+            }
         }
     }
 
@@ -124,8 +149,11 @@ class HomeController extends Controller
         $result = Result::findOrFail($resultID);
 
         $subject = Subject::all()->where('id', $subjectID)->first();
+        $user = User::all()->where('id', '=', Auth::user()->id)->first();
 
-        if ($result->delete()) {
+        $user->money = $user->money + 600;
+
+        if ($result->delete() && $user->save()) {
             Session::flash('deleteResult_success');
             return redirect()->route('showExams')->with(['subjectName' => $subject->name]);
         } else {

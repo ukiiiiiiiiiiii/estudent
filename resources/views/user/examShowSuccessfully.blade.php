@@ -51,7 +51,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4" class="text-center">Нема положених испита</td>
+                    <td colspan="5" class="text-center">Нема положених испита</td>
                 </tr>
             @endforelse
             </tbody>

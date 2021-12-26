@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exam;
 use App\Information;
 use App\Program;
+use App\Result;
 use App\Schedule;
 use App\Subject;
 use App\User;
@@ -984,5 +985,199 @@ class EmployeeController extends Controller
     {
         $programs = DB::table('programs')->orderBy('name', 'asc')->paginate(10);
         return view('employee.registeredExams', compact('programs'));
+    }
+
+    public function showRegisteredExams2($programID)
+    {
+        $program = Program::findOrFail($programID);
+
+        $results = Result::join('subjects', 'results.subject_id', '=', 'subjects.id')
+            ->select('subjects.program_id', 'results.*')
+            ->where('subjects.program_id', '=', $programID)
+            ->where('results.result', '=', null)
+            ->orderBy('results.user_id', 'asc')
+            ->get();
+
+        return view('employee.registeredExams2', compact('results', 'program'));
+    }
+
+    public function fetch_registeredExams2_data(Request $request) {
+        if($request->ajax()) {
+            $query = $request->get('query');
+            $program_id = $request->program_id;
+            $query = str_replace(" ", "%", $query);
+
+            $results = Result::join('subjects', 'results.subject_id', '=', 'subjects.id')
+                ->join('users', 'results.user_id', '=', 'users.id')
+                ->select('subjects.*', 'results.*', 'users.name as student')
+                ->where('subjects.program_id', '=', $program_id)
+                ->where('results.result', '=', null)
+                ->where('users.name', 'like', '%'. $query .'%')
+                ->orderBy('results.user_id', 'asc')
+                ->get();
+
+            return view('employee.registeredExams2_data', compact('results'))->render();
+        }
+    }
+
+    public function updateResult(Request $request) {
+        $this->validate($request, [
+            'result_id' => 'required',
+            'result' => 'required',
+        ]);
+
+        $result = Result::findOrFail($request->result_id);
+        $programID = Program::all()->where('id', $request->program_id)->first();
+
+        if ($request->result > 5) {
+            $result->result = $request->result;
+
+            if ($result->save()) {
+                $user = User::findOrFail($result->user_id);
+                $subject = Subject::findOrFail($result->subject_id);
+
+                $user->espb = $user->espb+$subject->espb;
+
+                if ($user->save()) {
+                    Session::flash('updateResult_success');
+                    return redirect()->route('employee.showRegisteredExams2', $programID);
+                } else {
+                    Session::flash('updateResult_failed');
+                    return redirect()->route('employee.showRegisteredExams2', $programID);
+                }
+            } else {
+                Session::flash('updateResult_failed');
+                return redirect()->route('employee.showRegisteredExams2', $programID);
+            }
+        } else {
+            $result->result = $request->result;
+
+            if ($result->save()) {
+                Session::flash('updateResult_success');
+                return redirect()->route('employee.showRegisteredExams2', $programID);
+            } else {
+                Session::flash('updateResult_failed');
+                return redirect()->route('employee.showRegisteredExams2', $programID);
+            }
+        }
+    }
+
+    public function showPassedExams() {
+        $results = Result::all()->where('result', '>', 5);
+
+        return view('employee.passedExams', compact('results'));
+    }
+
+    public function updateResult2(Request $request) {
+        $this->validate($request, [
+            'result_id' => 'required',
+            'result' => 'required',
+        ]);
+
+        $result = Result::findOrFail($request->result_id);
+
+        if ($request->result = 5) {
+            $result->result = $request->result;
+
+            if ($result->save()) {
+                $user = User::findOrFail($result->user_id);
+                $subject = Subject::findOrFail($result->subject_id);
+
+                $user->espb = $user->espb-$subject->espb;
+
+                if ($user->save()) {
+                    Session::flash('updateResult_success');
+                    return redirect()->route('employee.showPassedExams');
+                } else {
+                    Session::flash('updateResult_failed');
+                    return redirect()->route('employee.showPassedExams');
+                }
+            } else {
+                Session::flash('updateResult_failed');
+                return redirect()->route('employee.showPassedExams');
+            }
+        } else {
+            Session::flash('updateResult_failed');
+            return redirect()->route('employee.showPassedExams');
+        }
+    }
+
+    public function fetch_passedExams_data(Request $request) {
+        if($request->ajax()) {
+            $query = $request->get('query');
+            $query = str_replace(" ", "%", $query);
+
+            $results = Result::join('subjects', 'results.subject_id', '=', 'subjects.id')
+                ->join('users', 'results.user_id', '=', 'users.id')
+                ->select('subjects.*', 'results.*', 'users.name as student')
+                ->where('results.result', '>', 5)
+                ->where('users.name', 'like', '%'. $query .'%')
+                ->get();
+
+            return view('employee.passedExams_data', compact('results'))->render();
+        }
+    }
+
+    public function showUnsuccessfullyExams() {
+        $results = Result::all()->where('result', '=', 5);
+
+        return view('employee.unsuccessfullyExams', compact('results'));
+    }
+
+    public function fetch_unsuccessfullyExams_data(Request $request) {
+        if($request->ajax()) {
+            $query = $request->get('query');
+            $query = str_replace(" ", "%", $query);
+
+            $results = Result::join('subjects', 'results.subject_id', '=', 'subjects.id')
+                ->join('users', 'results.user_id', '=', 'users.id')
+                ->select('subjects.*', 'results.*', 'users.name as student')
+                ->where('results.result', '=', 5)
+                ->where('users.name', 'like', '%'. $query .'%')
+                ->get();
+
+            return view('employee.unsuccessfullyExams_data', compact('results'))->render();
+        }
+    }
+
+    public function updateResult3(Request $request) {
+        $this->validate($request, [
+            'result_id' => 'required',
+            'result' => 'required',
+        ]);
+
+        $result = Result::findOrFail($request->result_id);
+
+        if ($request->result > 5) {
+            $result->result = $request->result;
+
+            if ($result->save()) {
+                $user = User::findOrFail($result->user_id);
+                $subject = Subject::findOrFail($result->subject_id);
+
+                $user->espb = $user->espb+$subject->espb;
+
+                if ($user->save()) {
+                    Session::flash('updateResult_success');
+                    return redirect()->route('employee.showUnsuccessfullyExams');
+                } else {
+                    Session::flash('updateResult_failed');
+                    return redirect()->route('employee.showUnsuccessfullyExams');
+                }
+            } else {
+                Session::flash('updateResult_failed');
+                return redirect()->route('employee.showUnsuccessfullyExams');
+            }
+        } else {
+            $result->result = $request->result;
+
+            if ($result->save()) {
+                Session::flash('updateResult_success');
+                return redirect()->route('employee.showUnsuccessfullyExams');
+            } else {
+                Session::flash('updateResult_failed');
+                return redirect()->route('employee.showUnsuccessfullyExams');
+            }
+        }
     }
 }

@@ -71,6 +71,24 @@
                     </div>
                 </div>
 
+                @if(Auth::user()->budget == "С")
+                    <div class="form-group row">
+                        <div class="col-md-6 text-md-right">Новчана средства</div>
+
+                        <div class="col-md-6 font-weight-bold">
+                            {{ Auth::user()->money }} динара
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-6 text-md-right">Цена испитне пријаве</div>
+
+                        <div class="col-md-6 font-weight-bold">
+                            600 динара
+                        </div>
+                    </div>
+                @endif
+
                 <div class="row pt-2 pb-3">
                     <div class="col-md-4"></div>
                     <div class="col-md-4 text-center">
