@@ -28,7 +28,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="mark">Информације о положеном испиту</h5>
+                                <h5 class="modal-title" id="mark">Информације о неуспешном полагању испиту</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -100,7 +100,6 @@
                                         <div class="col-md-4 font-weight-bold">
                                             <select class="form-control @error('result') is-invalid @enderror text-center" id="result" name="result" required oninvalid="this.setCustomValidity('Унесите оцену!')" oninput="setCustomValidity('')">
                                                 <option value="">Изабери</option>
-                                                <option value="5">5</option>
                                                 <option value="6">6</option>
                                                 <option value="7">7</option>
                                                 <option value="8">8</option>

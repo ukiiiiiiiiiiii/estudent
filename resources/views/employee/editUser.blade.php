@@ -5,8 +5,8 @@
         <li id="dropdown-tab" class="nav-item dropdown mr-1">
             <a class="nav-link dropdown-toggle disabled" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Огласна табла</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Прикажи обавештења</a>
-                <a class="dropdown-item" href="#">Креирај обавештење</a>
+                <a class="dropdown-item" href="{{ route('employee.dashboard') }}">Прикажи обавештења</a>
+                <a class="dropdown-item" href="{{ route('employee.createInformation') }}">Креирај обавештење</a>
                 <a class="dropdown-item disabled" href="#">Измени обавештење</a>
             </div>
         </li>
@@ -61,6 +61,14 @@
                 @csrf
 
                 <div>
+                    <div class="form-group row mb-2">
+                        <label class="col-md-4 text-md-right">Студијски програм</label>
+
+                        <div class="col-md-6 pl-0">
+                            {{ $user->program->name }}
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label text-md-right">Име и презиме</label>
 
@@ -74,23 +82,8 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="program_id" class="col-md-4 col-form-label text-md-right">Студијски програм</label>
-                        <select class="col-md-6 form-control @error('program_id') is-invalid @enderror" name="program_id" id="program_id">
-                            @foreach($programs as $program)
-                                <option @if($user->program->id == $program->id)selected @endif value="{{ $program->id }}">{{ $program->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('program_id')
-                        <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group row">
                         <label for="grade" class="col-md-4 col-form-label text-md-right">Година студија</label>
                         <select class="col-md-3 form-control  @error('grade') is-invalid @enderror" name="grade" id="grade">
-                            <option value="" @if($user->grade == "")selected @endif>Све године</option>
                             <option value="1" @if($user->grade == "1")selected @endif>I година</option>
                             <option value="2" @if($user->grade == "2")selected @endif>II година</option>
                             <option value="3" @if($user->grade == "3")selected @endif>III година</option>
@@ -107,7 +100,6 @@
                         <label for="budget" class="col-md-4 col-form-label text-md-right">Начин финансирања</label>
 
                         <select class="col-md-4 form-control  @error('budget') is-invalid @enderror" name="budget" id="budget">
-                            <option value="" @if($user->budget == '') selected @endif>Изабери начин финансирања</option>
                             <option value="Б" @if($user->budget == 'Б') selected @endif>Буџет</option>
                             <option value="С" @if($user->budget == 'С') selected @endif>Самофинансирајући</option>
                         </select>

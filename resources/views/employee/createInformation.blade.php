@@ -57,55 +57,59 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="{{ route('employee.storeInformation') }}" method="POST">
-                @csrf
-                <div class="d-flex flex-row justify-content-around">
-                    <div class="form-group form-inline">
-                        <label for="program_id" class="col-form-label mr-2 text-md-right">Студијски програм</label>
-                        <select class="form-control @error('program_id') is-invalid @enderror" name="program_id" id="program_id">
-                            <option {{ old('program_id') == 'all' ? "selected" : "" }} value="all">Сви студијски програми</option>
-                            @foreach($programs as $program)
-                                <option {{ old('program_id') == $program->id ? "selected" : "" }} value="{{ $program->id }}">{{ $program->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('program_id')
-                        <span class="invalid-feedback" role="alert">
+            @if($programs->count() < 1)
+                <strong>Креирање обвештења није могуће! Студијски програми нису креирани.</strong>
+            @else
+                <form action="{{ route('employee.storeInformation') }}" method="POST">
+                    @csrf
+                    <div class="d-flex flex-row justify-content-around">
+                        <div class="form-group form-inline">
+                            <label for="program_id" class="col-form-label mr-2 text-md-right">Студијски програм</label>
+                            <select class="form-control @error('program_id') is-invalid @enderror" name="program_id" id="program_id">
+                                <option {{ old('program_id') == 'all' ? "selected" : "" }} value="all">Сви студијски програми</option>
+                                @foreach($programs as $program)
+                                    <option {{ old('program_id') == $program->id ? "selected" : "" }} value="{{ $program->id }}">{{ $program->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('program_id')
+                            <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                        @enderror
-                    </div>
+                            @enderror
+                        </div>
 
-                    <div class="form-group form-inline">
-                        <label for="grade" class="col-form-label text-md-right">Година</label>
-                        <select class="ml-2 form-control  @error('grade') is-invalid @enderror" name="grade" id="grade">
-                            <option {{ old('grade') == 'all' ? "selected" : "" }}  value="all">Све године</option>
-                            <option {{ old('grade') == '1' ? "selected" : "" }} value="1">I година</option>
-                            <option {{ old('grade') == '2' ? "selected" : "" }} value="2">II година</option>
-                            <option {{ old('grade') == '3' ? "selected" : "" }} value="3">III година</option>
-                            <option {{ old('grade') == '4' ? "selected" : "" }} value="4">IV година</option>
-                        </select>
-                        @error('grade')
-                        <span class="invalid-feedback" role="alert">
+                        <div class="form-group form-inline">
+                            <label for="grade" class="col-form-label text-md-right">Година</label>
+                            <select class="ml-2 form-control  @error('grade') is-invalid @enderror" name="grade" id="grade">
+                                <option {{ old('grade') == 'all' ? "selected" : "" }}  value="all">Све године</option>
+                                <option {{ old('grade') == '1' ? "selected" : "" }} value="1">I година</option>
+                                <option {{ old('grade') == '2' ? "selected" : "" }} value="2">II година</option>
+                                <option {{ old('grade') == '3' ? "selected" : "" }} value="3">III година</option>
+                                <option {{ old('grade') == '4' ? "selected" : "" }} value="4">IV година</option>
+                            </select>
+                            @error('grade')
+                            <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                        @enderror
+                            @enderror
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="text">Текст обавештења</label>
-                    <textarea class="form-control @error('text') is-invalid @enderror" name="text" id="text" rows="3"></textarea>
-                    @error('text')
-                    <span class="invalid-feedback" role="alert">
+                    <div class="form-group">
+                        <label for="text">Текст обавештења</label>
+                        <textarea class="form-control @error('text') is-invalid @enderror" name="text" id="text" rows="3"></textarea>
+                        @error('text')
+                        <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
-                    @enderror
-                </div>
-                <div class="form-group d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary mr-2">Објави</button>
-                    <a href="{{ route('employee.dashboard') }}" class="btn btn-danger">Одустани</a>
-                </div>
-            </form>
+                        @enderror
+                    </div>
+                    <div class="form-group d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary mr-2">Објави</button>
+                        <a href="{{ route('employee.dashboard') }}" class="btn btn-danger">Одустани</a>
+                    </div>
+                </form>
+            @endif
         </div>
     </div>
 </div>

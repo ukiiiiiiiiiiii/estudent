@@ -8,7 +8,7 @@
     @empty
         <tr>
             <td colspan="3" class="text-center">
-            Нема резултата претраге
+                <strong>Креирање распореда наставе није могуће! Студијски програми нису креирани.</strong>
             </td>
         </tr>
     @endforelse

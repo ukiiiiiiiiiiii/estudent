@@ -65,6 +65,7 @@
                         <button type="submit" class="btn btn-primary">
                             Потврди
                         </button>
+                        <a href="{{ route('admin.dashboard') }}" class="btn btn-danger">Одустани</a>
                     </div>
                 </div>
             </form>

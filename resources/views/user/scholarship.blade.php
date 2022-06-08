@@ -67,7 +67,12 @@
                                         </td>
                                         <td style="padding-left: 5px" class="align-top">
                                             износ<br>
-                                            <input type="number" style="width: 190px" name="money" id="money">
+                                            <input type="number" style="width: 190px; max-height: 29px" name="money" id="money" class="form-control @error('money') is-invalid @enderror" required oninvalid="this.setCustomValidity('Унесите нумеричку вредност!')"  oninput="setCustomValidity('')">
+                                            @error('money')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </td>
                                     </tr>
                                     <tr>
@@ -193,7 +198,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    Уплата неуспешна.
+                    Уплата неуспешна. Покушајте поново.
                 </div>
             </div>
         </div>
@@ -207,7 +212,35 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    Немате довољно средстава за уплату.
+                    Немате довољно новчаних средстава на рачуну за уплату школарине.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Update Scholarship Success Message -->
+    <div class="modal" id="updateScholarship_success2" tabindex="-1" aria-labelledby="updateScholarship_success2" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb;">
+                <div class="modal-body text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    Уплата школарине успешно извршена.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Update Scholarship Failed Message -->
+    <div class="modal" id="updateScholarship_failed2" tabindex="-1" aria-labelledby="updateScholarship_failed2" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb;">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    Уплата школарине неуспешна. Покушајте поново.
                 </div>
             </div>
         </div>

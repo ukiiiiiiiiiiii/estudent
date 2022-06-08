@@ -84,10 +84,10 @@ class HomeController extends Controller
             $user->paid = $user->paid + $request->payment;
 
             if ($user->save()) {
-                Session::flash('updateScholarship_success');
+                Session::flash('updateScholarship_success2');
                 return redirect()->route('showScholarship');
             } else {
-                Session::flash('updateScholarship_failed');
+                Session::flash('updateScholarship_failed2');
                 return redirect()->route('showScholarship');
             }
         } else {
@@ -97,9 +97,13 @@ class HomeController extends Controller
     }
 
     public function payment(Request $request) {
+        $this->validate($request, [
+            'money' => 'required|numeric',
+        ]);
+
         $user = User::all()->where('id', '=', Auth::user()->id)->first();
 
-        $user->money = $request->money;
+        $user->money = $user->money + $request->money;
 
         if ($user->save()) {
             Session::flash('updateScholarship_success');
@@ -119,8 +123,7 @@ class HomeController extends Controller
             ->where('subjects.program_id', '=', $program_id)
             ->where('subjects.grade', '<=', $grade)
             ->where('exams.status', '=', 'open')
-            ->orderBy('exams.date', 'asc')
-            ->orderBy('exams.time', 'asc')
+            ->orderBy('subjects.name', 'asc')
             ->get();
 
         return view('user.exams', compact('exams'));
@@ -146,25 +149,37 @@ class HomeController extends Controller
     }
 
     public function showRegisteredExam(){
-        $results = Result::select('*')
+        $results = Result::join('exams', 'results.exam_id', '=', 'exams.id')
+            ->select('results.*', 'exams.*')
             ->where('user_id', '=', Auth::user()->id)
-            ->where('result', '=', null)->get();
+            ->where('result', '=', null)
+            ->orderBy('exams.date', 'asc')
+            ->orderBy('exams.time', 'asc')
+            ->get();
 
         return view('user.examShowRegistered', compact('results'));
     }
 
     public function showSuccessfullyExam(){
-        $results = Result::select('*')
+        $results = Result::join('exams', 'results.exam_id', '=', 'exams.id')
+            ->select('results.*', 'exams.*')
             ->where('user_id', '=', Auth::user()->id)
-            ->where('result', '>', 5)->get();
+            ->where('result', '>', 5)
+            ->orderBy('exams.date', 'asc')
+            ->orderBy('exams.time', 'asc')
+            ->get();
 
         return view('user.examShowSuccessfully', compact('results'));
     }
 
     public function showUnsuccessfullyExam(){
-        $results = Result::select('*')
+        $results = Result::join('exams', 'results.exam_id', '=', 'exams.id')
+            ->select('results.*', 'exams.*')
             ->where('user_id', '=', Auth::user()->id)
-            ->where('result', '=', 5)->get();
+            ->where('result', '=', 5)
+            ->orderBy('exams.date', 'asc')
+            ->orderBy('exams.time', 'asc')
+            ->get();
 
         return view('user.examShowUnsuccessfully', compact('results'));
     }
@@ -217,7 +232,9 @@ class HomeController extends Controller
         $subject = Subject::all()->where('id', $subjectID)->first();
         $user = User::all()->where('id', '=', Auth::user()->id)->first();
 
-        $user->money = $user->money + 600;
+        if ($user->budget == 'С') {
+            $user->money = $user->money + 600;
+        }
 
         if ($result->delete() && $user->save()) {
             Session::flash('deleteResult_success');

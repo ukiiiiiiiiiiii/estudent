@@ -848,7 +848,7 @@
     <!-- Modal Create Schedule Failed Message -->
     <div class="modal" id="createSchedule_failed" tabindex="-1" aria-labelledby="createSchedule_failed" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb;">
+            <div class="modal-content" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb;">
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -876,7 +876,7 @@
     <!-- Modal Delete Schedule Failed Message -->
     <div class="modal" id="deleteSchedule_failed" tabindex="-1" aria-labelledby="deleteSchedule_failed" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb;">
+            <div class="modal-content" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb;">
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>

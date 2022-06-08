@@ -76,7 +76,7 @@
     </main>
 
     <footer>
-        <div class="text-center mb-2 mt-5 text-muted">Copyright 2021 © Урош Динић</div>
+        <div class="text-center mb-2 mt-5 text-muted">Copyright 2022 © Урош Динић</div>
     </footer>
 
     <script src="{{ asset('js/app.js') }}"></script>
@@ -85,8 +85,8 @@
         $(document).ready(function(){
             $("#popup").popover({
             html:!0,content:
-                "<strong>Пример 1:</strong> 1Д1/0004/19<br>" +
-                "<strong>Пример 2:</strong> 1Б1/0003/15",
+                "<strong>Пример 1:</strong> 01/0004/21<br>" +
+                "<strong>Пример 2:</strong> 11/0003/22",
             placement:"bottom",offset:"60px 0px"
             });
         });

@@ -50,11 +50,14 @@
     <div class="container pt-3">
         <div class="card bg-light">
             <div class="card-body">
-                <form action="{{ route('employee.searchInformation') }}" method="get" class="form-inline justify-content-between">
+                <form action="{{ route('employee.searchInformation') }}" method="get">
 
-                    <div>
-                        <label for="program_id">Студијски програм</label>
-                        <select class="custom-select text-center" id="program_id" name="program_id">
+                    <div class="text-center">
+                        <label for="program_id" class="mb-0">Студијски програм</label>
+                    </div>
+
+                    <div class="offset-md-1">
+                        <select class="custom-select text-center col-md-11" id="program_id" name="program_id">
                             <option value="" @if($program_id == "")selected @endif>Сви студијски програми</option>
                             {{--<option value="" selected>Сви студијски програми</option>--}}
                             @foreach(\App\Program::all() as $program)
@@ -63,61 +66,67 @@
                         </select>
                     </div>
 
-                    <div>
-                        <label for="grade">Година студија</label>
-                        <select class="custom-select" id="grade" name="grade">
-                            <option value="" @if($grade == "")selected @endif>Све године</option>
-                            <option value="1" @if($grade == "1")selected @endif>I година</option>
-                            <option value="2" @if($grade == "2")selected @endif>II година</option>
-                            <option value="3" @if($grade == "3")selected @endif>III година</option>
-                            <option value="4" @if($grade == "4")selected @endif>IV година</option>
-                        </select>
-                    </div>
+                    <div class="form-inline justify-content-between pt-3">
+                        <div class="col-md-1"></div>
 
-                    <div>
-                        <label for="created_at">Датум објављивања</label>
-                        <div class="form-group">
-                            од&nbsp
-                            <div class="input-group mr-3">
+                        <div>
+                            <label for="created_at">Датум објављивања</label>
+                            <div class="form-group">
+                                од&nbsp
+                                <div class="input-group mr-3">
                                 {{-- date('d.m.Y.', strtotime($from)) --}}
-                                <input type="text" class="form-control datepicker bg-white text-center @error('created_at_from') is-invalid @enderror" style="width: 120px" id="created_at_from" name="created_at_from" value="{{ date('d.m.Y.', strtotime($from)) }}" readonly>
-                                <span class="input-group-append border-left-0">
+                                    <input type="text" class="form-control datepicker bg-white text-center @error('created_at_from') is-invalid @enderror" style="width: 120px" id="created_at_from" name="created_at_from" value="{{ date('d.m.Y.', strtotime($from)) }}" readonly>
+                                    <span class="input-group-append border-left-0">
                                     <span class="input-group-text bg-white">
                                         <i class="fas fa-calendar-alt"></i>
                                     </span>
-                                </span>
-                                @error('created_at_from')
-                                <script>
-                                    $(document).ready(function(){
-                                        $('#created_at-modal').modal('show');
-                                    });
-                                </script>
-                                @enderror
-                            </div>
+                                    </span>
+                                    @error('created_at_from')
+                                    <script>
+                                        $(document).ready(function(){
+                                            $('#created_at-modal').modal('show');
+                                        });
+                                    </script>
+                                    @enderror
+                                </div>
 
-                            до&nbsp
-                            <div class="input-group">
-                                <input type="text" class="form-control datepicker bg-white text-center @error('created_at_to') is-invalid @enderror" style="width: 120px" id="created_at_to" name="created_at_to" value="{{ date('d.m.Y.', strtotime($to)) }}" readonly>
-                                <span class="input-group-append border-left-0">
-                                    <span class="input-group-text bg-white">
-                                        <i class="fas fa-calendar-alt"></i>
+                                до&nbsp
+                                <div class="input-group">
+                                    <input type="text" class="form-control datepicker bg-white text-center @error('created_at_to') is-invalid @enderror" style="width: 120px" id="created_at_to" name="created_at_to" value="{{ date('d.m.Y.', strtotime($to)) }}" readonly>
+                                    <span class="input-group-append border-left-0">
+                                        <span class="input-group-text bg-white">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </span>
                                     </span>
-                                </span>
-                                @error('created_at_to')
-                                <script>
-                                    $(document).ready(function(){
-                                        $('#created_at-modal').modal('show');
-                                    });
-                                </script>
-                                @enderror
+                                    @error('created_at_to')
+                                    <script>
+                                        $(document).ready(function(){
+                                            $('#created_at-modal').modal('show');
+                                        });
+                                    </script>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="d-flex flex-column">
-                        <button type="submit" class="btn btn-primary btn-sm mb-1">Претражи&nbsp<span><i class="fas fa-search"></i></span></button>
+                        <div>
+                            <label for="grade">Година студија</label>
+                            <select class="custom-select" id="grade" name="grade">
+                                <option value="" @if($grade == "")selected @endif>Све године</option>
+                                <option value="1" @if($grade == "1")selected @endif>I година</option>
+                                <option value="2" @if($grade == "2")selected @endif>II година</option>
+                                <option value="3" @if($grade == "3")selected @endif>III година</option>
+                                <option value="4" @if($grade == "4")selected @endif>IV година</option>
+                            </select>
+                        </div>
 
-                        <a href="{{ route('employee.dashboard') }}" class="btn btn-warning btn-sm">Поништи&nbsp<span><i class="fas fa-sync"></i></span></a>
+                        <div class="pt-4">
+                            <button type="submit" class="btn btn-primary btn-sm">Претражи</button>
+
+                            <a href="{{ route('employee.dashboard') }}" class="btn btn-danger btn-sm">Поништи претрагу</a>
+                        </div>
+
+                        <div class="col-md-1"></div>
                     </div>
                 </form>
             </div>

@@ -60,26 +60,20 @@
             <form action="{{ route('employee.updateInformation', $information->id) }}" method="POST">
                 @csrf
                 <div class="d-flex flex-row justify-content-center">
-                    <div class="form-group form-inline">
-                        <label for="program_id" class="col-form-label mr-2 text-md-right">Студијски програм</label>
-                        <div class="form-control">
-                            {{ $information->program->name }}
-                        </div>
+                    <div class="form-group form-inline font-weight-bold text-uppercase">
+                        {{ $information->program->name }}
                     </div>
 
-                    <div class="form-group form-inline ml-5">
-                        <label for="grade" class="col-form-label mr-2 text-md-right">Година</label>
-                        <div class="form-control">
-                            @if($information->grade == "1")
-                                I
-                            @elseif($information->grade == "2")
-                                II
-                            @elseif($information->grade == "3")
-                                III
-                            @elseif($information->grade == "4")
-                                IV
-                            @endif
-                        </div>
+                    <div class="form-group form-inline font-weight-bold text-uppercase">
+                        @if($information->grade == "1")
+                            &nbsp- I година
+                        @elseif($information->grade == "2")
+                            &nbsp- II година
+                        @elseif($information->grade == "3")
+                            &nbsp- III година
+                        @elseif($information->grade == "4")
+                            &nbsp- IV година
+                        @endif
                     </div>
                 </div>
 

@@ -57,90 +57,94 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="{{ route('employee.storeUser') }}" method="POST">
-                @csrf
+            @if($programs->count() < 1)
+                <strong>Упис студената није могућ! Студијски програми нису креирани.</strong>
+            @else
+                <form action="{{ route('employee.storeUser') }}" method="POST">
+                    @csrf
 
-                <div>
-                    <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">Име и презиме</label>
+                    <div>
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Име и презиме</label>
 
-                        <input id="name" type="text" class="col-md-6 form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required oninvalid="this.setCustomValidity('Унесите име и презиме студента!')" oninput="setCustomValidity('')" autofocus>
+                            <input id="name" type="text" class="col-md-6 form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required oninvalid="this.setCustomValidity('Унесите име и презиме студента!')" oninput="setCustomValidity('')" autofocus>
 
-                        @error('name')
-                        <span class="invalid-feedback" role="alert">
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                        @enderror
-                    </div>
+                            @enderror
+                        </div>
 
-                    <div class="form-group row">
-                        <label for="password" class="col-md-4 col-form-label text-md-right">ЈМБГ</label>
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">ЈМБГ</label>
 
-                        <input id="password" type="number" class="col-md-6 form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required oninvalid="this.setCustomValidity('Унесите ЈМБГ!')" oninput="setCustomValidity('')">
+                            <input id="password" type="number" class="col-md-6 form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required oninvalid="this.setCustomValidity('Унесите ЈМБГ!')" oninput="setCustomValidity('')">
 
-                        @error('password')
-                        <span class="offset-md-4 invalid-feedback" role="alert">
+                            @error('password')
+                            <span class="offset-md-4 invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                        @enderror
-                    </div>
+                            @enderror
+                        </div>
 
-                    <div class="form-group row">
-                        <label for="program_id" class="col-md-4 col-form-label text-md-right">Студијски програм</label>
+                        <div class="form-group row">
+                            <label for="program_id" class="col-md-4 col-form-label text-md-right">Студијски програм</label>
 
-                        <select class="col-md-6 form-control @error('program_id') is-invalid @enderror" name="program_id" id="program_id">
-                            <option {{ old('program_id') == '' ? "selected" : "" }} value="">Изабери студијски програм</option>
-                            @foreach($programs as $program)
-                                <option {{ old('program_id') == $program->id ? "selected" : "" }} value="{{ $program->id }}">{{ $program->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('program_id')
-                        <span class="offset-md-4 invalid-feedback" role="alert">
+                            <select class="col-md-6 form-control @error('program_id') is-invalid @enderror" name="program_id" id="program_id">
+                                <option {{ old('program_id') == '' ? "selected" : "" }} value="">Изабери студијски програм</option>
+                                @foreach($programs as $program)
+                                    <option {{ old('program_id') == $program->id ? "selected" : "" }} value="{{ $program->id }}">{{ $program->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('program_id')
+                            <span class="offset-md-4 invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
-                    </div>
+                            @enderror
+                        </div>
 
-                    <div class="form-group row">
-                        <label for="budget" class="col-md-4 col-form-label text-md-right">Начин финансирања</label>
+                        <div class="form-group row">
+                            <label for="budget" class="col-md-4 col-form-label text-md-right">Начин финансирања</label>
 
-                        <select class="col-md-4 form-control  @error('budget') is-invalid @enderror" name="budget" id="budget">
-                            <option {{ old('budget') == '' ? "selected" : "" }}  value="">Изабери начин финансирања</option>
-                            <option {{ old('budget') == 'Б' ? "selected" : "" }} value="Б">Буџет</option>
-                            <option {{ old('budget') == 'С' ? "selected" : "" }} value="С">Самофинансирајући</option>
-                        </select>
+                            <select class="col-md-4 form-control  @error('budget') is-invalid @enderror" name="budget" id="budget">
+                                <option {{ old('budget') == '' ? "selected" : "" }}  value="">Изабери начин финансирања</option>
+                                <option {{ old('budget') == 'Б' ? "selected" : "" }} value="Б">Буџет</option>
+                                <option {{ old('budget') == 'С' ? "selected" : "" }} value="С">Самофинансирајући</option>
+                            </select>
 
-                        @error('budget')
-                        <span class="offset-md-4 invalid-feedback" role="alert">
+                            @error('budget')
+                            <span class="offset-md-4 invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                        @enderror
-                    </div>
+                            @enderror
+                        </div>
 
-                    <div class="form-group row">
-                        <label for="rank" class="col-md-4 col-form-label text-md-right">Ранг</label>
+                        <div class="form-group row">
+                            <label for="rank" class="col-md-4 col-form-label text-md-right">Ранг</label>
 
-                        <input id="rank" type="text" class="col-md-1 form-control @error('username') is-invalid @enderror" name="rank" value="{{ old('rank') }}" required oninvalid="this.setCustomValidity('Унесите позицију на ранг листи!')" oninput="setCustomValidity('')">
+                            <input id="rank" type="text" class="col-md-1 form-control @error('username') is-invalid @enderror" name="rank" value="{{ old('rank') }}" required oninvalid="this.setCustomValidity('Унесите позицију на ранг листи!')" oninput="setCustomValidity('')">
 
-                        @error('username')
-                        <span class="offset-md-4 invalid-feedback" role="alert">
+                            @error('username')
+                            <span class="offset-md-4 invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                        @enderror
+                            @enderror
+                        </div>
+
+                        <div class="form-group row">
+                            <input id="username" type="text" class="col-md-1 form-control" name="username" value="{{ old('username') }}" required readonly hidden>
+                        </div>
                     </div>
 
-                    <div class="form-group row">
-                        <input id="username" type="text" class="col-md-1 form-control" name="username" value="{{ old('username') }}" required readonly hidden>
+                    <div class="row pt-2 pb-3">
+                        <div class="offset-md-4">
+                            <button onclick="setIndex()" type="submit" class="btn btn-primary">Потврди</button>
+                            <a href="{{ route('employee.showUsers') }}" class="btn btn-danger">Одустани</a>
+                        </div>
                     </div>
-                </div>
-
-                <div class="row pt-2 pb-3">
-                    <div class="offset-md-4">
-                        <button onclick="setIndex()" type="submit" class="btn btn-primary">Потврди</button>
-                        <a href="{{ route('employee.showUsers') }}" class="btn btn-danger">Одустани</a>
-                    </div>
-                </div>
-            </form>
+                </form>
+            @endif
         </div>
     </div>
 </div>
@@ -153,7 +157,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                Неуспешно креирање предмета. Покушајте поново.
+                Неуспешно креирање корисничког налога за студента. Покушајте поново.
             </div>
         </div>
     </div>
@@ -164,7 +168,14 @@
         //Get
         var program_id = $('#program_id').val();
 
-        var budget = $('#budget').val();
+        var programString = "";
+
+        if(program_id < 10) {
+            programString = "0" + program_id;
+        } else {
+            programString = "" + program_id;
+        }
+
         var rank = $('#rank').val();
 
         var rankString = "";
@@ -183,11 +194,11 @@
             rankString = "0" + rank;
         }
         else if(rank < 10000) {
-            rankString = "" + rank + "";
+            rankString = "" + rank;
         }
 
         //Set
-        $('#username').val(program_id + budget + "/" + rankString + "/" + twoDigitYear);
+        $('#username').val(programString + "/" + rankString + "/" + twoDigitYear);
     }
 </script>
 @endsection

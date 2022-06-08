@@ -1,11 +1,11 @@
 <table class="table" id="table_data_filter">
     <thead class="thead-blue">
     <tr>
-        <th class="col-md-3 text-center border-top-0 pt-0" style="color: #285586">Сви предмети</th>
+        <th class="col-md-3 text-center border-top-0 pt-0 skip-filter" style="color: #285586">Сви предмети</th>
         <th class="col-md-4 text-center border-top-0 pt-0" style="color: #285586">Сви студијски програми</th>
         <th class="col-md-2 text-center border-top-0 pt-0" style="color: #285586">Све године</th>
-        <th class="col-md-2 text-center border-top-0 pt-0 skip-filter" style="color: #285586"></th>
-        <th class="col-md-1 text-center border-top-0 pt-0"></th>
+        <th class="col-md-2 text-center border-top-0 pt-0 skip-filter" style="color: #285586">Сви бодови</th>
+        <th class="col-md-1 text-center border-top-0 pt-0 skip-filter"></th>
     </tr>
     </thead>
     <tbody>

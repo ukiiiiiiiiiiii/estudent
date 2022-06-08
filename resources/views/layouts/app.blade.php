@@ -125,7 +125,7 @@
     </div>
 </main>
 <footer>
-    <div class="text-center mb-1 text-muted">Copyright 2021 © Урош Динић</div>
+    <div class="text-center mb-1 text-muted">Copyright 2022 © Урош Динић</div>
 </footer>
 
 @if(Session::has('storeResult_success'))
@@ -180,6 +180,22 @@
     <script>
         $(function() {
             $('#updateScholarship_failed').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('updateScholarship_success2'))
+    <script>
+        $(function() {
+            $('#updateScholarship_success2').modal('show');
+        });
+    </script>
+@endif
+
+@if(Session::has('updateScholarship_failed2'))
+    <script>
+        $(function() {
+            $('#updateScholarship_failed2').modal('show');
         });
     </script>
 @endif

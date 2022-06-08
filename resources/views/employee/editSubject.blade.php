@@ -90,7 +90,6 @@
                     <div class="form-group row">
                         <label for="grade" class="col-md-4 col-form-label text-md-right">Година студија</label>
                         <select class="col-md-3 form-control  @error('grade') is-invalid @enderror" name="grade" id="grade">
-                            <option value="" @if($subject->grade == "")selected @endif>Све године</option>
                             <option value="1" @if($subject->grade == "1")selected @endif>I година</option>
                             <option value="2" @if($subject->grade == "2")selected @endif>II година</option>
                             <option value="3" @if($subject->grade == "3")selected @endif>III година</option>

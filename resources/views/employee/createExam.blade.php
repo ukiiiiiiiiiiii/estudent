@@ -505,7 +505,7 @@
     <!-- Modal Create Exam Failed Message -->
     <div class="modal" id="createExam_failed" tabindex="-1" aria-labelledby="createExam_failed" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb;">
+            <div class="modal-content" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb;">
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -533,7 +533,7 @@
     <!-- Modal Update Exam Failed Message -->
     <div class="modal" id="updateExam_failed" tabindex="-1" aria-labelledby="updateExam_failed" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb;">
+            <div class="modal-content" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb;">
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>

@@ -53,8 +53,8 @@ class EmployeeLoginController extends Controller
     protected function validateLogin(Request $request)
     {
         $request->validate([
-            $this->username() => 'required|string',
-            'password' => 'required|string',
+            $this->username() => 'required|string|max:255',
+            'password' => 'required|numeric|digits:13',
         ]);
     }
 

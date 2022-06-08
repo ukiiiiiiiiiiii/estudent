@@ -64,7 +64,7 @@
         <table class="table" id="table_data">
             <thead class="thead-blue">
             <tr>
-                <th class="col-md-10 sorting" data-sorting_type="asc" data-column_name="name" style="cursor: pointer"><span id="name_icon"><i class="fas fa-sort pr-1"></i></span>Назив студијског програма</th>
+                <th class="col-md-10 sorting" data-sorting_type="desc" data-column_name="name" style="cursor: pointer"><span id="name_icon"><i class="fas fa-sort pr-1"></i></span>Назив студијског програма</th>
                 <th class="col-md-2 text-center">Акција</th>
             </tr>
             </thead>
@@ -75,7 +75,7 @@
 
         <input type="hidden" name="hidden_page" id="hidden_page" value="1">
         <input type="hidden" name="hidden_column_name" id="hidden_column_name" value="name">
-        <input type="hidden" name="hidden_sort_type" id="hidden_sort_type" value="asc">
+        <input type="hidden" name="hidden_sort_type" id="hidden_sort_type" value="desc">
     </div>
 
     <!-- Modal Create Program Success Message -->
@@ -114,7 +114,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    Успешно сте избрисали податке.
+                    Успешно сте избрисали податке о изабраном студијском програму.
                 </div>
             </div>
         </div>

@@ -58,7 +58,7 @@
     </div>
 </main>
 <footer>
-    <div class="text-center mb-1 text-muted">Copyright 2021 © Урош Динић</div>
+    <div class="text-center mb-1 text-muted">Copyright 2022 © Урош Динић</div>
 </footer>
 
 @if(Session::has('addEmployee_success'))

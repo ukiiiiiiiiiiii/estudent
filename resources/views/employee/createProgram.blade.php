@@ -61,12 +61,12 @@
                 @csrf
 
                 <div class="form-group row pt-3">
-                    <label for="name" class="col-md-4 col-form-label text-md-right">Назив студијског програма</label>
+                    <label for="program_name" class="col-md-4 col-form-label text-md-right">Назив студијског програма</label>
 
                     <div class="col-md-7">
-                        <input id="name" type="text" class="form-control @error('program-name') is-invalid @enderror" name="name" value="{{ old('name') }}" required oninvalid="this.setCustomValidity('Унесите назив студијског програма!')" oninput="setCustomValidity('')" autofocus>
+                        <input id="program_name" type="text" class="form-control @error('program_name') is-invalid @enderror" name="program_name" value="{{ old('program_name') }}" required oninvalid="this.setCustomValidity('Унесите назив студијског програма!')" oninput="setCustomValidity('')" autofocus>
 
-                        @error('program-name')
+                        @error('program_name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

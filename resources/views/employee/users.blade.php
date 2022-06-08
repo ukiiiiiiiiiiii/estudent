@@ -49,13 +49,16 @@
     </ul>
     <div class="container pt-3">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <a href="{{ route('employee.createUser') }}" class="btn btn-success">Додај студента</a>
             </div>
 
-            <div class="col-md-3"></div>
-            <div class="col-md-3">
-                <input type="text" name="search" id="search" placeholder="Претрага" class="form-control">
+            <div class="col-md-4">
+                <input type="text" name="search" id="search" placeholder="Претрага" class="form-control text-center">
+            </div>
+
+            <div class="col-md-4 text-right">
+                <a href="{{ route('employee.showUsers') }}" class="btn btn-danger">Поништи претрагу</a>
             </div>
         </div>
 

@@ -143,7 +143,7 @@ class EmployeeController extends Controller
 
     public function createInformation()
     {
-        $programs = Program::all();
+        $programs = Program::all()->sortByDesc('name');
         return view('employee.createInformation')->with('programs', $programs);
     }
 
@@ -151,7 +151,7 @@ class EmployeeController extends Controller
         $this->validate($request, [
             'program_id' => 'required',
             'grade' => 'required',
-            'text' => 'required',
+            'text' => 'required|max:65535',
         ]);
 
         if ($request->program_id == 'all' && $request->grade != 'all') {
@@ -225,7 +225,7 @@ class EmployeeController extends Controller
 
     public function updateInformation(Request $request, $id) {
         $this->validate($request, [
-            'text' => 'required',
+            'text' => 'required|max:65535',
         ]);
 
         $information = Information::findOrFail($id);
@@ -243,13 +243,13 @@ class EmployeeController extends Controller
     public function destroyInformation($id) {
         $information = Information::findOrFail($id);
 
-        if ($information->delete()) {
-            Session::flash('deleteInformation_success');
-            return redirect()->route('employee.dashboard');
-        } else {
+        //if ($information->delete()) {
+            //Session::flash('deleteInformation_success');
+           // return redirect()->route('employee.dashboard');
+        //} else {
             Session::flash('deleteInformation_failed');
             return redirect()->route('employee.dashboard');
-        }
+        //}
     }
 
     /**
@@ -257,7 +257,7 @@ class EmployeeController extends Controller
      **/
     public function showPrograms()
     {
-        $programs = DB::table('programs')->orderBy('name', 'asc')->paginate(10);
+        $programs = DB::table('programs')->orderBy('name', 'desc')->paginate(10);
         return view('employee.programs', compact('programs'));
     }
 
@@ -284,12 +284,12 @@ class EmployeeController extends Controller
 
     public function storeProgram(Request $request) {
         $this->validate($request, [
-            'name' => 'required|string|max:255',
+            'program_name' => 'required|string|max:255',
         ]);
 
         $program = new Program();
 
-        $program->name = $request->name;
+        $program->name = $request->program_name;
 
         if ($program->save()) {
             Session::flash('createProgram_success');
@@ -307,11 +307,11 @@ class EmployeeController extends Controller
 
     public function updateProgram(Request $request, $id) {
         $this->validate($request, [
-            'name' => 'required|string|max:255',
+            'program_name' => 'required|string|max:255',
         ]);
 
         $program = Program::findOrFail($id);
-        $program->name = $request->name;
+        $program->name = $request->program_name;
 
         if ($program->save()) {
             Session::flash('updateProgram_success');
@@ -339,7 +339,13 @@ class EmployeeController extends Controller
      **/
     public function showSubjects()
     {
-        $subjects = Subject::orderBy('program_id', 'asc')->orderBy('grade', 'asc')->orderBy('name', 'asc')->get();
+        $subjects = Subject::join('programs', 'subjects.program_id', '=', 'programs.id')
+            ->select('subjects.*', 'programs.name as program_name')
+            ->orderBy('program_name', 'desc')
+            ->orderBy('grade', 'asc')
+            ->orderBy('name', 'asc')
+            ->get();
+        //$subjects = Subject::orderBy('program_id', 'asc')->orderBy('grade', 'asc')->orderBy('name', 'asc')->get();
         return view('employee.subjects', compact('subjects'));
     }
 
@@ -354,7 +360,7 @@ class EmployeeController extends Controller
                 ->orWhere('subjects.name', 'like', '%'. $query .'%')
                 ->orWhere('grade', 'like', '%'. $query .'%')
                 ->orWhere('espb', 'like', '%'. $query .'%')
-                ->orderBy('program_id', 'asc')
+                ->orderBy('program_name', 'desc')
                 ->orderBy('grade', 'asc')
                 ->orderBy('subjects.name', 'asc')
                 ->get();
@@ -365,7 +371,7 @@ class EmployeeController extends Controller
 
     public function createSubject()
     {
-        $programs = Program::all();
+        $programs = Program::orderBy('name', 'desc')->get();
         return view('employee.createSubject')->with('programs', $programs);
     }
 
@@ -377,64 +383,12 @@ class EmployeeController extends Controller
             'espb' => 'required|numeric',
         ]);
 
-        if ($request->program_id == 'all' && $request->grade != 'all') {
-            $programs = Program::all();
+        $subject = new Subject();
 
-            foreach ($programs as $program) {
-                $subject = new Subject();
-
-                $subject->name = $request->name;
-                $subject->program_id = $program->id;
-                $subject->grade = $request->grade;
-                $subject->espb = $request->espb;
-
-                $subject->save();
-            }
-        }
-        if ($request->program_id != 'all' && $request->grade == 'all') {
-            $grade = 4;
-
-            while ($grade > 0) {
-                $subject = new Subject();
-
-                $subject->name = $request->name;
-                $subject->program_id = $program->id;
-                $subject->grade = $request->grade;
-                $subject->espb = $request->espb;
-
-                $grade--;
-
-                $subject->save();
-            }
-        }
-        if ($request->program_id == 'all' && $request->grade == 'all') {
-            $programs = Program::all();
-
-            foreach ($programs as $program) {
-                $grade = 4;
-
-                while ($grade > 0) {
-                    $subject = new Subject();
-
-                    $subject->name = $request->name;
-                    $subject->program_id = $program->id;
-                    $subject->grade = $request->grade;
-                    $subject->espb = $request->espb;
-
-                    $grade--;
-
-                    $subject->save();
-                }
-            }
-        }
-        if ($request->program_id != 'all' && $request->grade != 'all') {
-            $subject = new Subject();
-
-            $subject->name = $request->name;
-            $subject->program_id = $request->program_id;
-            $subject->grade = $request->grade;
-            $subject->espb = $request->espb;
-        }
+        $subject->name = $request->name;
+        $subject->program_id = $request->program_id;
+        $subject->grade = $request->grade;
+        $subject->espb = $request->espb;
 
         if ($subject->save()) {
             Session::flash('createSubject_success');
@@ -456,7 +410,7 @@ class EmployeeController extends Controller
             'name' => 'required|string|max:255',
             'program_id' => 'required',
             'grade' => 'required',
-            'espb' => 'required'
+            'espb' => 'required|numeric',
         ]);
 
         $subject = Subject::findOrFail($id);
@@ -491,7 +445,7 @@ class EmployeeController extends Controller
      **/
     public function showUsers()
     {
-        $users = User::orderBy('program_id', 'asc')->orderBy('rank', 'desc')->orderBy('grade', 'asc')->orderBy('espb', 'asc')->get();
+        $users = User::orderBy('program_id', 'asc')->orderBy('rank', 'asc')->orderBy('grade', 'asc')->orderBy('espb', 'asc')->get();
         return view('employee.users', compact('users'));
     }
 
@@ -508,7 +462,7 @@ class EmployeeController extends Controller
                 ->orWhere('grade', 'like', '%'. $query .'%')
                 ->orWhere('espb', 'like', '%'. $query .'%')
                 ->orderBy('program_id', 'asc')
-                ->orderBy('rank', 'desc')
+                ->orderBy('rank', 'asc')
                 ->orderBy('grade', 'asc')
                 ->orderBy('espb', 'asc')
                 ->get();
@@ -529,7 +483,7 @@ class EmployeeController extends Controller
            $nextRank = $latestRank->rank+1;
        }
 
-        $programs = Program::all();
+        $programs = Program::all()->sortByDesc('name');
         return view('employee.createUser')->with('programs', $programs)->with('nextRank', $nextRank);
     }
 
@@ -540,7 +494,7 @@ class EmployeeController extends Controller
             'password' => 'required|numeric|digits:13',
             'program_id' => 'required',
             'budget' => 'required|string|max:1',
-            'rank' => 'required|numeric',
+            'rank' => 'required|numeric|max:65535',
         ]);
 
         $user = new User();
@@ -570,7 +524,6 @@ class EmployeeController extends Controller
     public function updateUser(Request $request, $id) {
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'program_id' => 'required',
             'grade' => 'required|numeric',
             'budget' => 'required|string|max:1',
             'espb' => 'required|numeric'
@@ -585,7 +538,6 @@ class EmployeeController extends Controller
         }
 
         $user->name = $request->name;
-        $user->program_id = $request->program_id;
         $user->grade = $request->grade;
         $user->budget = $request->budget;
         $user->espb = $request->espb;
@@ -616,7 +568,7 @@ class EmployeeController extends Controller
      **/
     public function showSchedule()
     {
-        $programs = DB::table('programs')->orderBy('name', 'asc')->paginate(10);
+        $programs = DB::table('programs')->orderBy('name', 'desc')->paginate(10);
         return view('employee.schedule', compact('programs'));
     }
 
@@ -701,7 +653,7 @@ class EmployeeController extends Controller
             return redirect()->route('employee.createSchedule', $request->program_id)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
         } else {
             Session::flash('createSchedule_failed');
-            return redirect()->route('employee.createSchedule');
+            return redirect()->route('employee.createSchedule', $request->program_id)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
         }
     }
 
@@ -792,7 +744,7 @@ class EmployeeController extends Controller
             return redirect()->route('employee.createSchedule', $programID)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
         } else {
             Session::flash('deleteSchedule_failed');
-            return redirect()->route('employee.createSchedule');
+            return redirect()->route('employee.createSchedule', $programID)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
         }
     }
 
@@ -801,7 +753,7 @@ class EmployeeController extends Controller
      **/
     public function showExams()
     {
-        $programs = DB::table('programs')->orderBy('name', 'asc')->paginate(10);
+        $programs = DB::table('programs')->orderBy('name', 'desc')->paginate(10);
         return view('employee.exams', compact('programs'));
     }
 
@@ -889,7 +841,7 @@ class EmployeeController extends Controller
             return redirect()->route('employee.createExam', $request->program_id)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
         } else {
             Session::flash('createExam_failed');
-            return redirect()->route('employee.createExam');
+            return redirect()->route('employee.createExam', $request->program_id)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
         }
     }
 
@@ -976,11 +928,11 @@ class EmployeeController extends Controller
         $subject = Subject::all()->where('id', $exam->subject_id)->first();
 
         if ($exam->save()) {
-            Session::flash('deleteExam_success');
+            Session::flash('updateExam_success');
             return redirect()->route('employee.createExam', $programID)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
         } else {
-            Session::flash('deleteExam_failed');
-            return redirect()->route('employee.createExam');
+            Session::flash('updateExam_failed');
+            return redirect()->route('employee.createExam', $programID)->with(['subjectName' => $subject->name])->with(['subjectGrade' => $subject->grade]);
         }
     }
 
@@ -989,7 +941,7 @@ class EmployeeController extends Controller
      */
     public function showRegisteredExams()
     {
-        $programs = DB::table('programs')->orderBy('name', 'asc')->paginate(10);
+        $programs = DB::table('programs')->orderBy('name', 'desc')->paginate(10);
         return view('employee.registeredExams', compact('programs'));
     }
 

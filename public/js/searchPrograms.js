@@ -26,15 +26,15 @@ $(document).ready(function () {
         var column_name = $(this).data('column_name');
         var order_type = $(this).data('sorting_type');
         var reverse_order = '';
-        if (order_type == 'asc') {
-            $(this).data('sorting_type', 'desc');
-            reverse_order = 'desc';
-            //clear_icon();
-            //$('#'+column_name+'_icon').html('<i class="fas fa-sort-up pr-1"></i>'); //promena ikonice nakon sortiranja
-        }
         if (order_type == 'desc') {
             $(this).data('sorting_type', 'asc');
             reverse_order = 'asc';
+            //clear_icon();
+            //$('#'+column_name+'_icon').html('<i class="fas fa-sort-up pr-1"></i>'); //promena ikonice nakon sortiranja
+        }
+        if (order_type == 'asc') {
+            $(this).data('sorting_type', 'desc');
+            reverse_order = 'desc';
             //clear_icon();
             //$('#'+column_name+'_icon').html('<i class="fas fa-sort-down pr-1"></i>'); //promena ikonice nakon sortiranja
         }

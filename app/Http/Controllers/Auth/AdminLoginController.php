@@ -53,7 +53,7 @@ class AdminLoginController extends Controller
     protected function validateLogin(Request $request)
     {
         $request->validate([
-            $this->username() => 'required|string',
+            $this->username() => 'required|string|max:255',
             'password' => 'required|string',
         ]);
     }

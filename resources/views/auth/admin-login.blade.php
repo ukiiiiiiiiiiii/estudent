@@ -72,7 +72,7 @@
 </main>
 
 <footer>
-    <div class="text-center mb-2 mt-5 text-muted">Copyright 2021 © Урош Динић</div>
+    <div class="text-center mb-2 mt-5 text-muted">Copyright 2022 © Урош Динић</div>
 </footer>
 
 <script src="{{ asset('js/app.js') }}"></script>

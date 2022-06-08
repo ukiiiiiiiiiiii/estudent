@@ -33,7 +33,7 @@
                         <div class="py-2"></div>
 
                         <label for="password" class="sr-only">Лозинка</label>
-                        <input id="password" placeholder="Лозинка" type="password" class="text-center form-control @error('username') is-invalid @enderror @error('password') is-invalid @enderror" name="password" required oninvalid="this.setCustomValidity('Унесите лозинку!')"  oninput="setCustomValidity('')">
+                        <input id="password" placeholder="ЈМБГ" type="password" class="text-center form-control @error('username') is-invalid @enderror @error('password') is-invalid @enderror" name="password" required oninvalid="this.setCustomValidity('Унесите ЈМБГ!')"  oninput="setCustomValidity('')">
 
                         <div class="py-1"></div>
 
@@ -72,7 +72,7 @@
 </main>
 
 <footer>
-    <div class="text-center mb-2 mt-5 text-muted">Copyright 2021 © Урош Динић</div>
+    <div class="text-center mb-2 mt-5 text-muted">Copyright 2022 © Урош Динић</div>
 </footer>
 
 <script src="{{ asset('js/app.js') }}"></script>

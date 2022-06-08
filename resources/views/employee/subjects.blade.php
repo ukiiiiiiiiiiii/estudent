@@ -49,13 +49,15 @@
     </ul>
     <div class="container pt-3">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <a href="{{ route('employee.createSubject') }}" class="btn btn-success">Креирај предмет</a>
             </div>
 
-            <div class="col-md-3"></div>
-            <div class="col-md-3">
-                <input type="text" name="search" id="search" placeholder="Претрага" class="form-control">
+            <div class="col-md-4">
+                <input type="text" name="search" id="search" placeholder="Претрага" class="form-control text-center">
+            </div>
+            <div class="col-md-4 text-right">
+                <a href="{{ route('employee.showSubjects') }}" class="btn btn-danger">Поништи претрагу</a>
             </div>
         </div>
 
@@ -114,7 +116,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    Успешно сте избрисали податке о предмету.
+                    Успешно сте избрисали податке о изабраном предмету.
                 </div>
             </div>
         </div>
@@ -128,7 +130,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    Неуспешно брисање података о предмету. Покушајте поново.
+                    Неуспешно брисање података. Покушајте поново.
                 </div>
             </div>
         </div>
